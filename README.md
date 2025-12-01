@@ -23,5 +23,9 @@ This report investigates Boss of the SOC v3 (BOTSv3) dataset, which is a publicl
 ![alt text](image-12.png)
 ![alt text](image-13.png)
 ![alt text](image-14.png)
+![alt text](image-15.png)
+![alt text](image-16.png)
+![alt text](image-17.png)
+![alt text](image-18.png)
 
 
