@@ -1,8 +1,18 @@
 # Comp3010
 
 # Introduction
-This report investigates Boss of the SOC v3 (BOTSv3) dataset, which is a publicly available Splunk Capture the Flag scenario which simulates a cyber-attack against the fictional brewing company Frothy. The CTF is designed for security operational professionals to practice SOMETHING. Security operations Centre (SOC) is where analysts are 
-# SOC Roles
+This report investigates Boss of the SOC v3 (BOTSv3) dataset, which is a publicly available Splunk Capture the Flag scenario which simulates a cyber-attack against the fictional brewing company Frothy. The CTF is designed for security operational professionals to practice their incident detection and network forensics skills. Security operations Centre (SOC) is where analysts are typically housed.
+# SOC Roles & Incident Handling
+The BOTSv3 exercise has provided a realstic example to demonstrate how Security Operations Centre (SOC) roles and incident handling methodologies work hand in hand during a cyber incident investgiation. Typically SOC analysts are divideed into tiers based on experience and responsibilities. (REFERENCE)
+## SOC Tiers and Responsibilities
+### Tier 1 (Triage and Monitoring)
+### Tier 2 (Incident Investigation)
+### Tier 3 (Threat Hunting and Specialist Expertise)
+## Incident Handling Method
+### Prevention
+### Detection
+### Response
+### Recovery
 # Incident Handling Reflection
 # Installation and Data Preparation
 # Guided Questions
