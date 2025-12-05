@@ -1,7 +1,21 @@
 # Comp3010
 ## Table of Contents
 - [Introduction](#introduction)
-- [SOC Roles & Incident Handling](#socroles&incidenthandling)
+- [SOC Roles & Incident Handling](#soc-roles--incident-handling)
+  - [Tier 1 (Triage and Monitoring)](#tier-1-triage-and-monitoring)
+  - [Tier 2 (Incident Investigation)](#tier-2-incident-investigation)
+  - [Tier 3 (Threat Hunting and Specialist Expertise)](#tier-3-threat-hunting-and-specialist-expertise)
+- [Incident Handling Method](#incident-handling-method)
+  - [Prevention](#prevention)
+  - [Detection](#detection)
+  - [Response](#response)
+  - [Recovery](#recovery)
+- [Incident Handling Reflection](#incident-handling-reflection)
+- [Installation and Data Preparation](#installation-and-data-preparation)
+- [Guided Questions](#guided-questions)
+- [Conclusion](#conclusion)
+- [References](#references)
+
 
 # Introduction
 This report investigates Boss of the SOC v3 (BOTSv3) dataset, which is a publicly available Splunk Capture the Flag scenario which simulates a cyber-attack against the fictional brewing company Frothy. The CTF is designed for security operational professionals to practice their incident detection and network forensics skills. Security operations Centre (SOC) is where analysts are typically housed.
