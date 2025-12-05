@@ -1,4 +1,6 @@
 # Comp3010
+## Table of Contents
+- [Introduction](#introduction)
 
 # Introduction
 This report investigates Boss of the SOC v3 (BOTSv3) dataset, which is a publicly available Splunk Capture the Flag scenario which simulates a cyber-attack against the fictional brewing company Frothy. The CTF is designed for security operational professionals to practice their incident detection and network forensics skills. Security operations Centre (SOC) is where analysts are typically housed.
