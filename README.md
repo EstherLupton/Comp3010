@@ -13,6 +13,14 @@
 - [Incident Handling Reflection](#incident-handling-reflection)
 - [Installation and Data Preparation](#installation-and-data-preparation)
 - [Guided Questions](#guided-questions)
+  - [Question 1](#question-1)
+  - [Question 2](#question-2)
+  - [Question 3](#question-3)
+  - [Question 4](#question-4)
+  - [Question 5](#question-5)
+  - [Question 6](#question-6)
+  - [Question 7](#question-7)
+  - [Question 8](#question-8)
 - [Conclusion](#conclusion)
 - [References](#references)
 
@@ -33,122 +41,84 @@ The BOTSv3 exercise has provided a realstic example to demonstrate how Security 
 ### Recovery
 # Incident Handling Reflection
 # Installation and Data Preparation
-# Guided Questions
-## Question 1
-Question:
-You're tasked to find the IAM (Identity & Access Management) users that accessed
-an AWS service in Frothly's AWS environment.
-Refer to the following link to get an idea of what source type you need to query and
-what field in the results will have the answer you're seeking.
-5
-COMP3010 Security Operations & Incident Management
-Link: https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-log-fileexamples.html
-List out the IAM users that accessed an AWS service (successfully or
-unsuccessfully) in Frothly's AWS environment? Answer guidance: Comma
-separated without spaces, in alphabetical order. (Example:
-ajackson,mjones,tmiller)
-Hint: Use aws:cloudtrail as the source type.
-Answer:
-## Question 2
-Question:
-The following links are provided to help you with this question.
-Links:
-• https://aws.amazon.com/premiumsupport/knowledge-center/s3-bucketpublic-access/
-• https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudwatchalarms-for-cloudtrail-additional-examples.html#cloudwatch-alarms-forcloudtrail-no-mfa-example
-Make sure you exclude events related to console logins.
-It might be a good idea to do a keyword search query on this one. Don't forget to
-surround the keyword with asterisks.
-What field would you use to alert that AWS API activity has occurred without MFA
-(multi-factor authentication)? Answer guidance: Provide the full JSON path.
-(Example: iceCream.flavors.traditional)
-Hint: Use aws:cloudtrail as the source type.
-Answer:
-## Question 3
-Question:
-Look at the source types available in the dataset. There might be one in particular
-that holds information on hardware, such as processors.
-What is the processor number used on the web servers? Answer guidance: Include
-any special characters/punctuation. (Example: The processor number for Intel Core
-i7-8650U is i7-8650U.)
-Hint: Use hardware as the source type in Splunk Search for find hardware
-information such as CPU statistics, hard drives, network interface cards, memory,
-and more.
-Answer:
-## Question 4
-Question:
-A common misconfiguration involving AWS is publically
-accessible S3 buckets. Read the following resource to understand ACLs
-and S3 buckets.
-Link: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketAcl.html
-Question 4: Bud accidentally makes an S3 bucket publicly accessible. What is the
-event ID of the API call that enabled public access? Answer guidance: Include any
-special characters/punctuation.
-Hint: Use aws:cloudtrail as the source type to search for the PutBucketAcl event.
-Answer:
-## Question 5
-Question:
-What is Bud's username?
-Answer:
-## Question 6
-Question:
-What is the name of the S3 bucket that was made publicly accessible?
-Hint: Use aws:cloudtrail as the source type.
-Answer:
-## Question 7
-Question:
-You're tasked with identifying a text file uploaded to the S3 bucket. Here is a link for
-more information related to this topic.
-Link: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
-Since you know the name of the S3 bucket, you should easily find the answer to
-this question.
-You will need to query a different AWS-related source type. HTTP status code
-might be helpful as well.
-What is the name of the text file that was successfully uploaded into the S3 bucket
-while it was publicly accessible? Answer guidance: Provide just the file name and
-extension, not the full path. (Example: filename.docx instead of
-/mylogs/web/filename.docx)
-Hint: Use aws:s3:accesslogs
-Answer:
-## Question 8
-Question:
-What keywords can you start your search with to help identify what data sources
-can help you with this?
-One of the fields within this source type clearly has the answer, but which is it?
-Perhaps expanding upon your search to count on the operating systems and hosts
-will be helpful.
-What is the FQDN of the endpoint that is running a different Windows operating
-system edition than the others?
-Hint: Start with winhostmon as the source type.
-Answer:
-# Conclusion 
-# References
 ![alt text](image.png)
 ![alt text](image-1.png)
 ![alt text](image-2.png)
+# Guided Questions
+## Question 1
+Question:
+<br>You're tasked to find the IAM (Identity & Access Management) users that accessed
+an AWS service in Frothly's AWS environment.<br> <br>
+List out the IAM users that accessed an AWS service (successfully or
+unsuccessfully) in Frothly's AWS environment?
+<br>
+<br>Answer:
 ![alt text](image-3.png)
 ![alt text](image-4.png)
 ![alt text](image-5.png)
 ![alt text](image-6.png)
 ![alt text](image-7.png)
 ![alt text](image-8.png)
+## Question 2
+Question:
+<br>
+What field would you use to alert that AWS API activity has occurred without MFA (multi-factor authentication)?
+<br>
+<br>Answer:
 ![alt text](image-9.png)
 ![alt text](image-10.png)
 ![alt text](image-11.png)
 ![alt text](image-12.png)
+## Question 3
+Question:
+<br>Look at the source types available in the dataset. There might be one in particular that holds information on hardware, such as processors.
+What is the processor number used on the web servers?
+<br>
+<br>Answer:
 ![alt text](image-13.png)
 ![alt text](image-14.png)
 ![alt text](image-15.png)
 ![alt text](image-16.png)
+## Question 4
+Question:
+<br> Bud accidentally makes an S3 bucket publicly accessible. What is the
+event ID of the API call that enabled public access?
+<br>
+<br>Answer:
 ![alt text](image-17.png)
 ![alt text](image-18.png)
+## Question 5
+Question:
+<br>What is Bud's username?
+<br>
+<br>Answer:
 ![alt text](image-19.png)
+## Question 6
+Question:
+<br>What is the name of the S3 bucket that was made publicly accessible?
+<br>
+<br>Answer: 
 ![alt text](image-20.png)
+## Question 7
+Question:
+<br>
+What is the name of the text file that was successfully uploaded into the S3 bucket while it was publicly accessible?
+<br>
+<br>Answer:
 ![alt text](image-21.png)
 ![alt text](image-22.png)
 ![alt text](image-23.png)
+## Question 8
+Question:
+<br>
+What is the FQDN of the endpoint that is running a different Windows operating system edition than the others?
+<br>
+<br>Answer:
 ![alt text](image-24.png)
 ![alt text](image-25.png)
 ![alt text](image-26.png)
 ![alt text](image-27.png)
 ![alt text](image-28.png)
 ![alt text](image-29.png)
+# Conclusion 
+# References
