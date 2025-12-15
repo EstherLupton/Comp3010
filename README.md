@@ -42,7 +42,7 @@ The BOTSv3 exercise has provided a realstic example to demonstrate how Security 
 ### Detection
 ### Response
 ### Recovery
-## Time Line on Events
+## Timeline of Events for Enitire Scenario
 Below is the timeline of events for the incident that occured on the 20th of August 2018 indentified through the use of Splunk
 09:16:12 The IAM user AKIAJOGCDXJ5NW5PXUPA/web_admin begins attempting to access IAM resources.
 09:16:12 The same user attempts to create a user named nullweb_admin Xenial Xerus instance.
@@ -131,6 +131,12 @@ Additional cloud servers were automatically created, likely as a result of the e
 15:15:00 An email is sent boasting about the successful exfiltration of customer data.
 
 Toward the end of the incident, attackers attempted automated login attacks against company web servers and then launched another attack aimed at extracting stored data. An email was later sent claiming that customer data had been successfully stolen, indicating a high risk of data exposure and potential reputational and regulatory impact.
+# Incident Response 
+Thia incident relates to unaothrzed exposure risk within Frothlys AWS environment, which was identified through log-based analysis using AWS CloudTrail, S3 access logs, hardware telemetry and Windows host monitoring data.
+
+This investigation releaved identity usage patterns, misconfigured access controls and potentail data exposure caused by a publicily accessible S3 bucket.
+
+
 # Incident Handling Reflection
 # Installation and Data Preparation
 ![alt text](image.png)
