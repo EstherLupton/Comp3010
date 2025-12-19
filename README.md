@@ -38,6 +38,73 @@ The BOTSv3 exercise has provided a realstic example to demonstrate how Security 
 
 ## Incident Handling Method
 
+## Splunk Installiation and Data Prepration
+### Installing Splunk
+I created an account with Splunk Enterprise, naviageted to the Linux download and copied the .tgz wget link. I opened up my Ubuntu Virtuall Machine, opened terminal then navigated to Desktop where I pasted the link into the termanl and ran it.
+![alt text](<Screenshot 2025-12-19 113734v.png>)
+I then installed splunk using the command: sudo tar xvzf splunk-10.0.1-c486717c32b-linux-amd64.tgz -C /opt/
+To run splunk I cd-ed into /opt/splunk/bin directory and used the command ./splunk start --accept-license
+After signing in using an administair account, this locally hosts splunk on my virtual machine.
+You then need to make an admin account for splunk, and sign in when prompted when follwing the link to the locally  hosted application. 
+### Adding the License
+To add the lincense I naviagted to the license file stored on the dle, using the borwser inside my VM. I saved the file to my downloads. Then when inside splunk, If you go into settings and then licensing, you can upload the license to your account.
+### Installing the dataset
+Navigate to the Boss of the SOC (BOTS) Dataset Version 3 gitHub page on the VM. Download the dataset following the link. Extract the file when inside the VM.
+In command prompt type sudo su to become root.
+Cd into downloads to find the dataset.
+Type in the command cp -r botsv3_data_set /opt/splunk/etc/apps
+CD into /opt/splunk/etc/apps
+When you type ls you can see the dataset is in there
+![alt text](image-38.png)
+![alt text](image-41.png)
+![alt text](image-42.png)
+![alt text](image-43.png)
+![alt text](image-44.png)
+![alt text](image-45.png)
+
+--
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
+![alt text](image-30.png)
+![alt text](image-31.png)
+![alt text](image-32.png)
+![alt text](image-33.png)
+![alt text](image-34.png)
+![alt text](image-35.png)
+![alt text](image-36.png)
+![alt text](image-37.png)
+![alt text](<Screenshot 2025-12-19 111920.png>)
+![alt text](<Screenshot 2025-12-19 113817.png>)
+![alt text](<Screenshot 2025-12-19 113846.png>) 
+![alt text](<Screenshot 2025-12-19 113952.png>) 
+![alt text](<Screenshot 2025-12-19 114034.png>) 
+![alt text](<Screenshot 2025-12-19 114124.png>) 
+![alt text](<Screenshot 2025-12-19 114142.png>) 
+![alt text](<Screenshot 2025-12-19 114303.png>) 
+![alt text](<Screenshot 2025-12-19 114320.png>) 
+![alt text](<Screenshot 2025-12-19 114339.png>) 
+![alt text](<Screenshot 2025-12-19 114406.png>) 
+![alt text](<Screenshot 2025-12-19 114424.png>) 
+![alt text](<Screenshot 2025-12-19 112310.png>) 
+![alt text](<Screenshot 2025-12-19 112421.png>)
+![alt text](<Screenshot 2025-12-19 112500.png>) 
+![alt text](<Screenshot 2025-12-19 112532.png>)
+![alt text](<Screenshot 2025-12-19 112647.png>) 
+![alt text](<Screenshot 2025-12-19 112702.png>) 
+![alt text](<Screenshot 2025-12-19 113141.png>) 
+![alt text](<Screenshot 2025-12-19 113201.png>) 
+![alt text](<Screenshot 2025-12-19 113734 ...png>)
+![alt text](<Screenshot 2025-12-19 113734v.png>)
+![alt text](image-39.png)
+![alt text](image-40.png)
+
+
+
+## Key Indicators of Compromise
+
+## Recovery time line
+
 ### Prevention
 ### Detection
 ### Response
