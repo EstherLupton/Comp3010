@@ -44,10 +44,15 @@ The BOTSv3 exercise has provided a realstic example to demonstrate how Security 
 ### Recovery
 ## Timeline of Events for Enitire Scenario
 Below is the timeline of events for the incident that occured on the 20th of August 2018 indentified through the use of Splunk
+
 09:16:12 The IAM user AKIAJOGCDXJ5NW5PXUPA/web_admin begins attempting to access IAM resources.
+
 09:16:12 The same user attempts to create a user named nullweb_admin Xenial Xerus instance.
+
 09:16:12 An email alert reports that the credentials for AKIAJOGCDXJ5NW5PXUPA/web_admin were discovered on GitHub.
+
 09:27:06 The user attempts to describe the AWS account.
+
 09:27:07 IAM access attempts by AKIAJOGCDXJ5NW5PXUPA/web_admin conclude.
 
 An attacker gained access to a cloud administrator account after its credentials were accidentally exposed on GitHub. They briefly explored the cloud environment, attempted to create a new user for persistent access, and tried to launch a virtual server before the activity was detected and access was terminated.
@@ -138,7 +143,7 @@ This investigation releaved identity usage patterns, misconfigured access contro
 
 The incident manily affected; confidentiallity of the data stored in an S3, idenitity assurance due to API activity with MFA and operational trust in cloud goverance controls.
 
-###Detection
+### Detection
 The incident was discovered through systematic log anlysis using Splunk by querying AWS_native telemtry sources. Evidence supporting the dsicovering is documeneted in the README including:
 - Search queries used
 - Source types selected
@@ -147,26 +152,26 @@ The incident was discovered through systematic log anlysis using Splunk by query
 
 This demonstates repeatabke, audiatble detection, aligning with idustry SOC investigation practices. 
 
-###Identity and Access Analysis 
+### Identity and Access Analysis 
 Analysis of CloudTrail logs revealed that bstoll, btun, splunk_access,web_admin accessed AWS services either successfully or unsuccessfully.
 
-####Operations Impact
+#### Operations Impact
 Identifying IAM users invloved is crital as it defines accountability for actions performed, it suppoers least-privilege validation and allows target credential rotation or suspension.
 
 AWS confrims that CloudTrail records every API call made by or n behalf of an IAM identity, including failed attempts, making it the authoritative source for IAM activity verification. SOURCE
 https://docs.aws.amazon.com/pdfs/awscloudtrail/latest/userguide/awscloudtrail-ug.pdf
 
-###MFA Control Failure Detection
+### MFA Control Failure Detection
 The investigation identified the CloudTrail field used to detect AWS API activity without multi-factor authenication.
 
-####Security Significance
+#### Security Significance
 API calls made without MFA can significatly increase the risk of credential compromise, the blast radius of stolen access keys and the likilhood of auotmated abuse. 
 
 AWS explicility recommends montiring this field and triggering alerts when MFA is absent, particaully for sensitive services such as S3, IAM and EC2. SOURCE
 https://docs.aws.amazon.com/awscloudtrail/latest/userguide/WhatIsCloudTrail-Security.html
 https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-tutorials.html
 
-###Infrastructure Conext, Processor Identification
+### Infrastructure Conext, Processor Identification
 Hardware telemetry analysis revealed the web servers were running on the E5-2676 processor. This processir architecture supports accurate incident scoping, performace analysis during abuse and validation of homogenous infrastructure assumptions.This ensure alerts and baselines are not falsely attributed to hardware discrepancies.
 
 ###Route Cause, Public S3 Bucket Misconfiguration
@@ -175,7 +180,7 @@ An S3 bucket, frothlywebcode, was made publicily accessible by bstoll due to an 
 AWS explicitly states that incorrect ACLs are a leading cuase of sata exposure incidents and PutBucketAcl is the API call responsible for modifying bucket permissions. SOURCE 
 https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html
 
-###Data Exposure Confirmation
+### Data Exposure Confirmation
 During the period when the bucket was publicily acessible a text file, OPEN_BUCKET_PLEASE_FIX.txt, was successfully .
 
 The successful upload during public exposure indicates the bucket was actively accessible, there is a potential for unauthorized read / write access and data integrity and confidentialy cannot be assured.
@@ -188,24 +193,24 @@ Windows host monitoring system identified an endpoint, BSTOLL-L.froth.ly, runnin
 This deviation may indicate, misconfiguration, legacy system exposure and reduced patch complaince. Heterogenous OS environments increase operational risk and complicate incident containment as confirmed by Microsoft secuirty baseline guidance. SOURCE
 https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/windows-security-configuration-framework/windows-security-baselines
 
-###Overall Impact on Operations
-####Immediate Risks
+### Overall Impact on Operations
+#### Immediate Risks
 -Potential unaothrised data access
 - Increaesed attack surface via public S3 bucket
 - Reduced identitiy assurance due to a non MFA API usage
-####Business and Operational Impact
+#### Business and Operational Impact
 - Loss of trust in cloud goverance controls
 - Potential regulatory implications if sensitive data was stored
 - Increase remediation effort and monitrong overhead
 
-###Due Diligence and Investigation Quality
+### Due Diligence and Investigation Quality
 This investigation demonstates due diligence by:
 - Using AWS recommened log sources
 - Corroborating findings with offical AWS documentation
 Ensuring findings are evdience-backed and reproducible
 - Aligning detection logic with indsutry best practice
 
-###Recomened Remiation
+### Recomened Remiation
 - Enfronce manadotry MFA for all IAM users
 - Enable S3 Block Public Access at account level
 - Implement automated CloudTrail alerts
