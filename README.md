@@ -61,6 +61,7 @@ When you type ls you can see the dataset is in there
 ![alt text](image-43.png)
 ![alt text](image-44.png)
 ![alt text](image-45.png)
+### Validate its working
 
 --
 ![alt text](image.png)
@@ -102,6 +103,15 @@ When you type ls you can see the dataset is in there
 
 
 ## Key Indicators of Compromise
+Theres a few key areas which indicate the system has been compromised.
+- A cloud administrator account had unexpected use, especially for sensitive and critical actions such as creating users or changing permission levels
+- This cloud access occured without multifactor authentication, increasing the likelihood that this was actually a leaked crediential
+- Cloud storage was publically exposed when internal or configuration file are uploaded
+- Unusual activitiy and unauthorised changes to cloud infrastructure, like new servers appearing unexpectedly
+- Unknown and untrusted sources managed to succesfully upload into the cloud storage
+- Systems were running different operating systems or configurations compared to the standard environment
+- Activity that suggests reconnaissance, like searching for internal, financial or confidential data
+- Actions indicating data exposure or loss, inclding public access settings or suspicious file transfer
 
 ## Recovery time line
 
