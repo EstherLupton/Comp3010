@@ -1,28 +1,6 @@
 # Comp3010
 ## Table of Contents
-- [Introduction](#introduction)
-- [SOC Roles & Incident Handling](#soc-roles--incident-handling)
-  - [Tier 1 (Triage and Monitoring)](#tier-1-triage-and-monitoring)
-  - [Tier 2 (Incident Investigation)](#tier-2-incident-investigation)
-  - [Tier 3 (Threat Hunting and Specialist Expertise)](#tier-3-threat-hunting-and-specialist-expertise)
-- [Incident Handling Method](#incident-handling-method)
-  - [Prevention](#prevention)
-  - [Detection](#detection)
-  - [Response](#response)
-  - [Recovery](#recovery)
-- [Incident Handling Reflection](#incident-handling-reflection)
-- [Installation and Data Preparation](#installation-and-data-preparation)
-- [Guided Questions](#guided-questions)
-  - [Question 1](#question-1)
-  - [Question 2](#question-2)
-  - [Question 3](#question-3)
-  - [Question 4](#question-4)
-  - [Question 5](#question-5)
-  - [Question 6](#question-6)
-  - [Question 7](#question-7)
-  - [Question 8](#question-8)
-- [Conclusion](#conclusion)
-- [References](#references)
+
 
 
 # Introduction
@@ -39,22 +17,104 @@ The BOTSv3 exercise has provided a realstic example to demonstrate how Security 
 ## Incident Handling Method
 
 ## Splunk Installiation and Data Prepration
+Below are step by step instructions which I took to investigate the BOTSv3 dataset. For reproducibility here are the steps:
+
+---
+
 ### Installing Splunk
-I created an account with Splunk Enterprise, naviageted to the Linux download and copied the .tgz wget link. I opened up my Ubuntu Virtuall Machine, opened terminal then navigated to Desktop where I pasted the link into the termanl and ran it.
+
+1. Create an account with Splunk Enterprise  
+https://www.splunk.com/en_us/products/splunk-enterprise.html
+
+2. Navigate to the Linux download and copy the .tgz wget link.  
+https://www.splunk.com/en_us/download/splunk-enterprise.html
+
+The .tgz wget link should look a little like this:  
+*wget -O splunk-10.0.2-e2d18b4767e9-linux-amd64.tgz "https://download.splunk.com/products/splunk/releases/10.0.2/linux/splunk-10.0.2-e2d18b4767e9-linux-amd64.tgz"*
+
+3. Open Ubuntu Virtual Machine
+
+4. Open terminal on the VM
+
+5. Navigate to the Desktop directory
+
+6. Paste the link into the terminal and execute.
+
 ![alt text](<Screenshot 2025-12-19 113734v.png>)
-I then installed splunk using the command: sudo tar xvzf splunk-10.0.1-c486717c32b-linux-amd64.tgz -C /opt/
-To run splunk I cd-ed into /opt/splunk/bin directory and used the command ./splunk start --accept-license
-After signing in using an administair account, this locally hosts splunk on my virtual machine.
-You then need to make an admin account for splunk, and sign in when prompted when follwing the link to the locally  hosted application. 
+
+7. Install Splunk using the command:  
+*sudo tar xvzf splunk-10.0.1-c486717c32b-linux-amd64.tgz -C /opt/*
+
+8. To run Splunk navigate to the directory opt/splunk/bin and use the command:  
+*./splunk start --accept-license*
+
+9. Sign in using an administrator account  
+
+
+10. Create an administrator account for Splunk
+
+11. Sign in when prompted
+
+12. Follow the link to the locally hosted application
+
+---
+
 ### Adding the License
-To add the lincense I naviagted to the license file stored on the dle, using the borwser inside my VM. I saved the file to my downloads. Then when inside splunk, If you go into settings and then licensing, you can upload the license to your account.
-### Installing the dataset
-Navigate to the Boss of the SOC (BOTS) Dataset Version 3 gitHub page on the VM. Download the dataset following the link. Extract the file when inside the VM.
-In command prompt type sudo su to become root.
-Cd into downloads to find the dataset.
-Type in the command cp -r botsv3_data_set /opt/splunk/etc/apps
-CD into /opt/splunk/etc/apps
-When you type ls you can see the dataset is in there
+
+1. Whilst inside the Ubuntu Virtual Machine, navigate to the license file stored on the dle
+
+2. Save the file into the downloads
+
+3. Run the splunk application
+
+4. Open settings and then licensing
+
+5. Upload the license from your downloads to your account
+
+---
+
+### Installing the Dataset
+
+1. Whilst inside the VM, navigate to the Boss of the SOC (BOTS) Dataset Version 3 GitHub page  
+https://github.com/splunk/botsv3
+
+2. Download using the link and extract the zip
+
+3. Open terminal and enter the command to become the root:  
+*sudo su*
+
+4. Navigate to the Downloads directory
+
+5. Enter the command:  
+*cp -r botsv3_data_set /opt/splunk/etc/apps*
+
+6. Navigate into opt/splunk/etc/apps
+
+---
+
+### Validation of Correct Installation and Setup
+
+Theres a range of steps to ensure installation is correct:
+
+1. To verify Splunk is running you will be able to access it by the web interface typically at http://localhost:8000, to start splunk use the command:  
+*./splunk start*
+
+2. To confirm the license was correctly applied, navigate to settings, then licensing inside Splunk and see there’s no warnings or violations
+
+3. To check the BOTS V3 Dataset is correctly installed, navigate to the /opt/splunk/etc/apps directory, run the command *ls* and see the dataset file
+
+4. To validate data inside of Splunk, run the following search inside the application:  
+*index=botsv3*
+
+---
+
+### Stopping Splunk
+Once you are finished investigating use the command *./splunk stop* to terminate Splunk.
+
+
+---
+
+
 ![alt text](image-38.png)
 ![alt text](image-41.png)
 ![alt text](image-42.png)
