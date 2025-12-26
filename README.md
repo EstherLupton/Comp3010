@@ -56,6 +56,29 @@ The .tgz wget link should look a little like this:
 11. Sign in when prompted
 
 12. Follow the link to the locally hosted application
+![alt text](<Screenshot 2025-12-19 111920.png>)
+![alt text](<Screenshot 2025-12-19 113817.png>)
+![alt text](<Screenshot 2025-12-19 113846.png>) 
+![alt text](<Screenshot 2025-12-19 113952.png>) 
+![alt text](<Screenshot 2025-12-19 114034.png>) 
+hi
+![alt text](<Screenshot 2025-12-19 114124.png>) 
+![alt text](<Screenshot 2025-12-19 114142.png>) 
+![alt text](<Screenshot 2025-12-19 114303.png>) 
+![alt text](<Screenshot 2025-12-19 114320.png>) 
+![alt text](<Screenshot 2025-12-19 114339.png>) 
+![alt text](<Screenshot 2025-12-19 114406.png>) 
+![alt text](<Screenshot 2025-12-19 114424.png>) 
+![alt text](<Screenshot 2025-12-19 112310.png>) 
+![alt text](<Screenshot 2025-12-19 112421.png>)
+![alt text](<Screenshot 2025-12-19 112500.png>) 
+![alt text](<Screenshot 2025-12-19 112532.png>)
+![alt text](<Screenshot 2025-12-19 112647.png>) 
+![alt text](<Screenshot 2025-12-19 112702.png>) 
+![alt text](<Screenshot 2025-12-19 113141.png>) 
+![alt text](<Screenshot 2025-12-19 113201.png>) 
+![alt text](<Screenshot 2025-12-19 113734 ...png>)
+![alt text](<Screenshot 2025-12-19 113734v.png>)
 
 ---
 
@@ -70,7 +93,21 @@ The .tgz wget link should look a little like this:
 4. Open settings and then licensing
 
 5. Upload the license from your downloads to your account
-
+![alt text](image.png)
+![alt text](image-38.png)
+![alt text](image-41.png)
+![alt text](image-42.png)
+![alt text](image-43.png)
+![alt text](image-44.png)
+![alt text](image-45.png)
+![alt text](image-30.png)
+![alt text](image-31.png)
+![alt text](image-32.png)
+![alt text](image-33.png)
+![alt text](image-34.png)
+![alt text](image-35.png)
+![alt text](image-36.png)
+![alt text](image-37.png)
 ---
 
 ### Installing the Dataset
@@ -89,6 +126,10 @@ https://github.com/splunk/botsv3
 *cp -r botsv3_data_set /opt/splunk/etc/apps*
 
 6. Navigate into opt/splunk/etc/apps
+
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
 
 ---
 
@@ -110,56 +151,8 @@ Theres a range of steps to ensure installation is correct:
 
 ### Stopping Splunk
 Once you are finished investigating use the command *./splunk stop* to terminate Splunk.
-
-
----
-
-
-![alt text](image-38.png)
-![alt text](image-41.png)
-![alt text](image-42.png)
-![alt text](image-43.png)
-![alt text](image-44.png)
-![alt text](image-45.png)
-### Validate its working
-
---
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-2.png)
-![alt text](image-30.png)
-![alt text](image-31.png)
-![alt text](image-32.png)
-![alt text](image-33.png)
-![alt text](image-34.png)
-![alt text](image-35.png)
-![alt text](image-36.png)
-![alt text](image-37.png)
-![alt text](<Screenshot 2025-12-19 111920.png>)
-![alt text](<Screenshot 2025-12-19 113817.png>)
-![alt text](<Screenshot 2025-12-19 113846.png>) 
-![alt text](<Screenshot 2025-12-19 113952.png>) 
-![alt text](<Screenshot 2025-12-19 114034.png>) 
-![alt text](<Screenshot 2025-12-19 114124.png>) 
-![alt text](<Screenshot 2025-12-19 114142.png>) 
-![alt text](<Screenshot 2025-12-19 114303.png>) 
-![alt text](<Screenshot 2025-12-19 114320.png>) 
-![alt text](<Screenshot 2025-12-19 114339.png>) 
-![alt text](<Screenshot 2025-12-19 114406.png>) 
-![alt text](<Screenshot 2025-12-19 114424.png>) 
-![alt text](<Screenshot 2025-12-19 112310.png>) 
-![alt text](<Screenshot 2025-12-19 112421.png>)
-![alt text](<Screenshot 2025-12-19 112500.png>) 
-![alt text](<Screenshot 2025-12-19 112532.png>)
-![alt text](<Screenshot 2025-12-19 112647.png>) 
-![alt text](<Screenshot 2025-12-19 112702.png>) 
-![alt text](<Screenshot 2025-12-19 113141.png>) 
-![alt text](<Screenshot 2025-12-19 113201.png>) 
-![alt text](<Screenshot 2025-12-19 113734 ...png>)
-![alt text](<Screenshot 2025-12-19 113734v.png>)
 ![alt text](image-39.png)
 ![alt text](image-40.png)
-
 
 
 ## Key Indicators of Compromise
