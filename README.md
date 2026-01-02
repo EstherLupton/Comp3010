@@ -6,13 +6,28 @@
 # Introduction
 This report investigates Boss of the SOC v3 (BOTSv3) dataset, which is a publicly available Splunk Capture the Flag scenario which simulates a cyber-attack against the fictional brewing company Frothy. The CTF is designed for security operational professionals to practice their incident detection and network forensics skills. Security operations Centre (SOC) is where analysts are typically housed.
 # SOC Roles & Incident Handling
-The BOTSv3 exercise has provided a realstic example to demonstrate how Security Operations Centre (SOC) roles and incident handling methodologies work hand in hand during a cyber incident investgiation. Typically SOC analysts are divideed into tiers based on experience and responsibilities. (REFERENCE)
+The BOTSv3 exercise has provided a realistic example to demonstrate how Security Operations Centre (SOC) roles and incident handling methodologies work hand in hand during a cyber incident investigation. Typically, SOC analysts are divided into tiers based on experience and responsibilities.  
+(REFERENCE) https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9138872  
+
+Despite tier structure, many tasks and responsibilities overlap.
+
 ## SOC Tiers and Responsibilities
+
 ### Tier 1 (Triage and Monitoring)
+
+Tier 1 analysts are often the least experienced analysts, they are responsible for all initial investigations, triaging events and manage the majority of incidents. They also deal with most of the communications directed to the SOC. When an event requires investigation, they raise initial tickets, perform initial analysis and manage the ticket until it is resolved and closed. Tier 1 analysts escalate queries and tickets to Teir 2 when they cannot be resolved.
 
 ### Tier 2 (Incident Investigation)
 
+Tier 2 analysts are responsible for more in-depth analysis of the tickets escalated by Teir 1. Once an incident is passed on to them, Tier 2 manages the ticket until its resolved and closed or escalated to Tier 3. Depending on the organisation, Tier 2 have additional responsibilities like signature turning, device configuration, vulnerability management, configuring log and event collectors.
+
 ### Tier 3 (Threat Hunting and Specialist Expertise)
+
+Tier 3 analysts are usually the most experienced. They are expected to have high levels of competences within cybersecurity. Tier 3 deals with the incidents raised by Tier 2, sharing and managing threat intelligence, configuration and implementation of security tools.
+
+## In Context of the Dataset
+
+Within the investigation, these SOC tier responsibilities are reflected in the guided questions. Tier 1 activities are in the initial log review and identification of suspicious activity. Tier 2 requires correlation from multiple log sources, timeline construction, and identification of compromised IAM accounts. Tier 3 would take on threat hunting and specialist analysis activities, such as interpreting attacker behaviour, assessing impact and identifying security control gaps. This demonstrates how the BOTSv3 exercise models a realistic SOC workflow, with incidents progressing through tiers as analysis depth and complexity increase.
 
 ## Incident Handling Method
 
