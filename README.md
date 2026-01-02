@@ -515,3 +515,43 @@ What is the FQDN of the endpoint that is running a different Windows operating s
 ![alt text](<Screenshot 2025-12-19 113201.png>) 
 ![alt text](<Screenshot 2025-12-19 113734 ...png>)
 ![alt text](<Screenshot 2025-12-19 113734v.png>)
+
+## Impact on Operations
+
+The security incident identified in the BOTSv3 dataset would have had significant operational impact on the organisation. It would have affected technical systems, SOC workload, business continuity and overall security posture. While the investigation is on a simulated environment, the attacker activity would disrupt day-to-day operations in a live enterprise setting.
+
+### Impact on SOC Operations and Resources
+
+The detection and investigation would increase demand on SOC resources. Tier 1 would continuously monitor logs, triage alerts and manage the incident related tickets, so their capacity to respond to unrelated security events would decrease. Tier 2 analysts would need to conduct deeper investigations, correlate log sources and reconstruct timelines, this is very time-intensive and resource-heavy.
+
+The sustained focus on a single incident could delay response times for other alerts and therefore increasing exposure to additional threats. Tier 3 would further divert specialist resources away from proactive threat hunting and security improvements.
+
+### Impact on Identity and Access Management (IAM)
+
+To contain the incident, affected accounts would need to be disabled with passwords reset and access permissions reviewed. These actions will disrupt legitimate user access and potentially prevent staff from performing their roles until remediation is complete.
+
+Additionally, widespread IAM reviews are required to uncover any excessive privileges, requiring role adjustments that can temporarily slow business processes while access is revalidated and approved.
+
+### Impact on System Availability and Performance
+
+Depending on the attacker’s activity, affected systems may require isolation from the live network for forensic analysis. This could result in downtime or degraded performance. Logging configurations may also be adjusted to better capture system data, this could impact system performance due to higher storage and processing requirements.
+
+### Impact on Business Continuity and Productivity
+
+Operational disruptions could reduce staff productivity. Employees may be unable to access systems or data required for their role, leading to delays in business processes.
+
+Management and technical staff would also need to divert time away from normal duties to support incident response and postmortem activities.
+
+### Impact on Security Posture and Future Operations
+
+While disruptive, the incident would expose weakness in security monitoring tools. Addressing these gaps would result in short-term operational overhead. However, these improvements would strengthen the organisations long-term security posture by enhancing visibility and reducing time to detect incidents.
+
+The incident may also trigger updates to current incident response procedures and analyst training, further impacting operational planning and workloads.
+
+### Reputational and Compliance Considerations
+
+If the incident involved sensitive data or unauthorized access to critical systems, the company would face reputational damage and potential fines. This would introduce additional operational requirements like internal audits, compliance reporting, stakeholder communication, placing further strain on operational teams.
+
+### Overall Operational Impact
+
+Overall, the incident would have a multi-layer impact on operations and business. The investigation would consume SOC resources, disrupt user access and system availability, reduce employee productivity and require organisational changed to security controls and processes. This highlights the importance of well-defined incident response procedures and effective detection.
