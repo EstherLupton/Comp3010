@@ -555,3 +555,15 @@ If the incident involved sensitive data or unauthorized access to critical syste
 ### Overall Operational Impact
 
 Overall, the incident would have a multi-layer impact on operations and business. The investigation would consume SOC resources, disrupt user access and system availability, reduce employee productivity and require organisational changed to security controls and processes. This highlights the importance of well-defined incident response procedures and effective detection.
+
+6 Guided Investigation Findings 
+The following findings summarise the results of the guided investigation, the guided questions and answers can be found in the appendix of this document. 
+Identity and Access Management Activity
+Analysis of AWS CloudTrail logs revealed unusual IAM activity involving multiple user accounts, notably the web_admin. This account performed sensitive AWS and API actions and accessed IAM and S3 services. The timing and nature of these actions indicated the account had been compromised rather than legitimate admin actions.
+Additional analysis confirmed several IAM API calls were executed without multifactor authentication, significantly reduced identity assurance.
+Cloud Storage Misconfiguration
+CloudTrail investigations identified an API call (PutBucketAcl) that modified permissions on the S3 bucket frothlywebcode, making it publicly available. This misconfiguration introduced a fatal risk, allowing unauthorised access to cloud-hosted resources.
+Analysis of S3 access logs confirmed interaction with the public bucket, including an upload of a file named OPEN_BUCKET_PLEASE_FIX.txt. This proves the bucket was exposed and accessible during the misconfiguration window, confirming a loss of data integrity and confidentiality. 
+Endpoint Anomaly Detection
+Endpoint telemetry from windows monitoring logs revealed the endpoint BSTOLL-L.froth.ly was running a non-standard operating system configuration. This deviation from peer systems suggests either misconfiguration or potential compromise. Hardware telemetry further confirmed it also was operating on an E5-2676 processor, unlike peer environments.
+Inconsistent endpoint configurations increase operational risk by complicating patch management and incident containment. The anomaly therefore reduces security posture within the affected environment.
