@@ -1,28 +1,81 @@
 # Comp3010
+
+---
+
 ## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Introduction](#introduction)
+- [SOC Context & Incident Handling Framework](#soc-context--incident-handling-framework)
+  - [SOC Tiers and Responsibilities](#soc-tiers-and-responsibilities)
+    - [Tier 1 (Triage and Monitoring)](#tier-1-triage-and-monitoring)
+    - [Tier 2 (Incident Investigation)](#tier-2-incident-investigation)
+    - [Tier 3 (Threat Hunting and Specialist Expertise)](#tier-3-threat-hunting-and-specialist-expertise)
+  - [In Context of the Dataset](#in-context-of-the-dataset)
+- [Splunk Installation & Dataset Preparation](#splunk-installation--dataset-preparation)
+  - [Installing Splunk](#installing-splunk)
+  - [Adding the License](#adding-the-license)
+  - [Installing the Dataset](#installing-the-dataset)
+  - [Validation of Correct Installation and Setup](#validation-of-correct-installation-and-setup)
+  - [Stopping Splunk](#stopping-splunk)
+- [Incident Overview](#incident-overview)
+  - [Table 1 - Incident Timeline](#table-1---incident-timeline)
+  - [Table 2 - Key Indicators of Compromise](#table-2---key-indicators-of-compromise)
+- [Guided Investigation Findings](#guided-investigation-findings)
+  - [Identity and Access Management Activity](#identity-and-access-management-activity)
+  - [Cloud Storage Misconfiguration](#cloud-storage-misconfiguration)
+  - [Endpoint Anomaly Detection](#endpoint-anomaly-detection)
+  - [Table 3 - Evidence and Best Practices Corroboration](#table-3---evidence-and-best-practices-corroboration)
+  - [Table 4 - Damage Assessment](#table-4---damage-assessment)
+- [Operational & Business Impact](#operational--business-impact)
+  - [Impact on SOC Operations and Resources](#impact-on-soc-operations-and-resources)
+  - [Impact on Identity and Access Management (IAM)](#impact-on-identity-and-access-management-iam)
+  - [Impact on System Availability and Performance](#impact-on-system-availability-and-performance)
+  - [Impact on Business Continuity and Productivity](#impact-on-business-continuity-and-productivity)
+  - [Impact on Security Posture and Future Operations](#impact-on-security-posture-and-future-operations)
+  - [Reputational and Compliance Considerations](#reputational-and-compliance-considerations)
+  - [Overall Operational Impact](#overall-operational-impact)
+- [Incident Response & Recovery](#incident-response--recovery)
+  - [Detection](#detection)
+  - [Route Cause](#route-cause)
+  - [Containment](#containment)
+  - [Table 5 - Recovery Timeline](#table-5---recovery-timeline)
+- [SOC Reflection & Lessons Learned](#soc-reflection--lessons-learned)
+  - [Table 6 - Recommendations & Action Plan](#table-6---recommendations--action-plan)
+- [Conclusion](#conclusion)
+- [Bibliography](#bibliography)
+
+---
 
 # Introduction
 This report investigates Boss of the SOC v3 (BOTSv3) dataset, which is a publicly available Splunk Capture the Flag scenario which simulates a cyber-attack against the fictional brewing company Frothly. The Capture the Flag (CTF) is designed for security operational professionals to practice their incident detection and network forensics skills. Analyst are based in the Security Operations Centre (SOC).
+
+---
+
 # SOC Roles & Incident Handling
 The BOTSv3 exercise s demonstrates Security Operations Centre (SOC) roles and incident handling methodologies work hand in hand during a cyber incident investigation. Typically, SOC analysts are divided into tiers based on experience and responsibilities (Enoch Agyepong, 2020). Despite the tier structure, many tasks and responsibilities overlap.
 
+---
+
 ## SOC Tiers and Responsibilities
 
-## Tier 1 (Triage and Monitoring)
+### Tier 1 (Triage and Monitoring)
 
 Tier 1 analysts are often the least experienced analysts, deal with most of the communications directed to the SOC, triaging events, initialising investigations and managing most incidents. When an event requires further investigation Tier 1 analysts escalate to Tier 2. 
 
-## Tier 2 (Incident Investigation)
+### Tier 2 (Incident Investigation)
 
 Tier 2 analysts are responsible for more in-depth analysis of the incident and have additional responsibilities like signature turning, device configuration, vulnerability management, configuring log and event collectors.   Once an incident is transferred, Tier 2 manages the ticket until its resolved and closed or escalated to Tier 3. 
 
-## Tier 3 (Threat Hunting and Specialist Expertise)
+### Tier 3 (Threat Hunting and Specialist Expertise)
 
 Tier 3 analysts are usually the most experienced, dealing with the incidents raised by Tier 2, sharing and managing threat intelligence, handling configuration and implementation of security tools. 
 
-## In Context of the Dataset
+### In Context of the Dataset
 
 Within the investigation, these SOC tier responsibilities are reflected in the guided questions. Tier 1 activities are in the initial log review and identification of suspicious activity. Tier 2 requires correlation from multiple log sources, timeline construction, and identification of compromised IAM accounts. Tier 3 undertakes threat hunting and specialist analysis activities, such as interpreting attacker behaviour, assessing impact and identifying security control gaps. This demonstrates how the BOTSv3 exercise models a realistic SOC workflow, with incidents progressing through tiers as analysis depth and complexity increase.
+
+---
 
 # Incident Handling Method
 
@@ -149,11 +202,14 @@ Once you are finished investigating use the command *./splunk stop* to terminate
 ![alt text](image-39.png)
 ![alt text](image-40.png)
 
+---
 
 # Incident Overview
 The incident is a simulated cyber-attack against a fake brewing organisation “Frothly”, using the BOTSv3 dataset, the report presents a high-level narrative of the incident focusing on; what occurred, when it occurred and why it is security-signification, detailing findings from the guided investigation questions and providing log-based evidence to support the conclusions.
 The investigation identified a cloud-based security incident, which involved misconfigured AWS (Amazon Web Services) resources, suspicious credential activity and endpoint compromise causing data exposure and cryptocurrency mining. The evidence was primarily found in AWS CloudTrail, S3 access logs, endpoint telemetry and the Windows host monitoring data. All this evidence was collated and analysed using Splunk Enterprise.
 Detailed Splunk queries, raw event outputs, field extractions, and reproducible evidence are documented in full within the accompanying GitHub repository, in line with SOC investigation best practice. 
+
+---
 
 ## Table 1 - Incident Timeline
 Events are presented in chronological order to preserve forensic integrity and support incident reconstruction. 
@@ -168,6 +224,7 @@ Events are presented in chronological order to preserve forensic integrity and s
 | 13:57:54 | CloudTrail | Public access to the S3 bucket removed | Reduces exposure window and mitigates further risk | **Tier 3:** Coordinated containment actions and validated access control restoration |
 | Ongoing | Multiple | Additional suspicious endpoint and network activity observed (out of investigation scope) | Suggests broader compromise; documented separately | **Tier 1:** Logged alerts identified during monitoring<br>**Tier 3:** Scoped and documented for future investigation |
 
+---
 
 ## Tabe 2 - Key Indicators of Compromise
 In this incident, the following are the key indicators that the cloud services had been compromised.
@@ -183,7 +240,12 @@ In this incident, the following are the key indicators that the cloud services h
 | Reconnaissance activity | Queries or access patterns targeting internal or sensitive data | Indicates attacker discovery and targeting phase |
 | Indicators of data exposure | Public access settings or suspicious file transfers | Confirms potential loss of confidentiality and integrity |
 
+---
+
 # Guided Investigation Findings
+
+---
+
 ## Guided Questions and Answers
 ### Question 1
 Question:
@@ -268,17 +330,25 @@ What is the FQDN of the endpoint that is running a different Windows operating s
 ![alt text](image-28.png)
 ![alt text](image-29.png)
 
+---
+
 ## Indentity and Access Management Activity
 Analysis of AWS CloudTrail logs revealed unusual IAM activity involving multiple user accounts, notably the web_admin. This account performed sensitive AWS and API actions and accessed IAM and S3 services. The timing and nature of these actions indicated the account had been compromised rather than legitimate admin actions.
 Additional analysis confirmed several IAM API calls were executed without multifactor authentication, significantly reduced identity assurance.
+
+--- 
 
 ## Cloud Storage Misconfiguration
 CloudTrail investigations identified an API call (PutBucketAcl) that modified permissions on the S3 bucket frothlywebcode, making it publicly available. This misconfiguration introduced a fatal risk, allowing unauthorised access to cloud-hosted resources.
 Analysis of S3 access logs confirmed interaction with the public bucket, including an upload of a file named OPEN_BUCKET_PLEASE_FIX.txt. This proves the bucket was exposed and accessible during the misconfiguration window, confirming a loss of data integrity and confidentiality. 
 
+---
+
 ## Endpoint Anomaly Detection
 Endpoint telemetry from windows monitoring logs revealed the endpoint BSTOLL-L.froth.ly was running a non-standard operating system configuration. This deviation from peer systems suggests either misconfiguration or potential compromise. Hardware telemetry further confirmed it also was operating on an E5-2676 processor, unlike peer environments.
 Inconsistent endpoint configurations increase operational risk by complicating patch management and incident containment. The anomaly therefore reduces security posture within the affected environment.
+
+---
 
 ## Table 3 - Evidence and Best Practice Corroboration
 | Finding Area | Observation | Authoritative Guidance | Relevance |
@@ -289,6 +359,8 @@ Inconsistent endpoint configurations increase operational risk by complicating p
 | Data Exposure | Successful external upload to public S3 bucket | AWS classifies public write access as a critical misconfiguration ([AWS, Security best practices for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html)) | Confirms loss of integrity and confidentiality |
 | Endpoint Anomaly | Endpoint running non-standard OS configuration | Microsoft security baselines recommend consistent OS configurations ([Microsoft Security Baselines](https://learn.microsoft.com/en-us/security/benchmark/)) | Inconsistent systems increase operational and containment risk |
 | Infrastructure Context | Servers running E5-2676 processor architecture | Hardware consistency supports accurate baselining | Confirms anomalies are not hardware related |
+
+---
 
 ## Table 4 -  Damage Assessment
 | Impact Area | Observed Damage | Severity | Rationale |
@@ -302,34 +374,70 @@ Inconsistent endpoint configurations increase operational risk by complicating p
 | SOC Operations | Increased investigation and response workload | Medium | Analyst resources diverted from proactive monitoring to threat hunting |
 | Business Operations | Potential disruption due to access review and remediation | Low | No confirmed service outage, but recovery actions may delay workflows and productivity |
 
+---
+
 # Operational and Business Impact
 The security incident identified in the BOTSv3 dataset would have had significant operational impact on the organisation. It would have affected technical systems, SOC workload, business continuity and overall security posture. While the investigation is on a simulated environment, the attacker activity would disrupt day-to-day operations in a live enterprise setting.
+
+---
+
 ## Impact on SOC Operations and Resources
 The detection and investigation would increase demand on SOC resources. Tier 1 would continuously monitor logs, triage alerts and manage the incident related tickets, so their capacity to respond to unrelated security events would decrease. Tier 2 analysts would need to conduct deeper investigations, correlate log sources and reconstruct timelines, this is very time-intensive and resource-heavy.
 The sustained focus on a single incident could delay response times for other alerts and therefore increasing exposure to additional threats. Tier 3 would further divert specialist resources away from proactive threat hunting and security improvements. 
+
+---
+
 ## Impact on Identity and Access Management (IAM)
 To contain the incident, affected accounts would need to be disabled with passwords reset and access permissions reviewed. These actions will disrupt legitimate user access and potentially prevent staff from performing their roles until remediation is complete.
 Additionally, widespread IAM reviews would be required to uncover any excessive privileges, requiring role adjustments, temporarily slowing business processes while access is revalidated and approved.
+
+---
+
 ## Impact on System Availability and Performance
 Depending on the attacker’s activity, affected systems may require isolation from the live network for forensic analysis. This could result in downtime or degraded performance. Logging configurations may also be adjusted to better capture system data, this could impact system performance due to higher storage and processing requirements.
+
+---
+
 ## Impact on Business Continuity and Productivity
 Operational disruptions could reduce staff productivity. Employees may be unable to access systems or data required for their role, leading to delays in business processes. 
 Management and technical staff would also need to divert time away from normal duties to support incident response and postmortem activities.
+
+---
+
 ## Impact on Security Posture and Future Operations
 While disruptive, the incident would expose weakness in security monitoring tools. Addressing these gaps would result in short-term operational overhead. However, these improvements would strengthen the organisation’s long-term security posture by enhancing visibility and reducing time to detect incidents. 
 The incident may also trigger updates to current incident response procedures and analyst training, further impacting operational planning and workloads.
+
+---
+
 ## Reputational and Compliance Considerations
 If the incident involved sensitive data or unauthorized access to critical systems, the company would face reputational damage and potential fines. This would introduce additional operational requirements like internal audits, compliance reporting, stakeholder communication. 
+
+---
+
 ## Overall Operational Impact
 Overall, the incident would have a multi-layer impact on operations and business. The investigation would consume SOC resources, disrupt user access and system availability, reduce employee productivity and require organisational changed to security controls and processes. This highlights the importance of well-defined incident response procedures and effective detection. 
 
+---
+
 # Incident Response and Recovery
+
+---
+
 ## Detection
 The incident was detected through systemic log analysis using Splunk, focusing on AWS telemetry sources including CloudTrail and S3 access logs. Queries were used to identify anomalous IAM activity, access control changes, and unauthorized interactions with cloud resources. Detection evidence is documented in the accompanying README to ensure reproducibility and auditability.
+
+---
+
 ## Route Cause
 An S3 bucket, frothlywebcode, was made publicly accessible by bstoll through the PutBucketAcl API call (Event ID: ab45689d-69cd-41e7-8705-5350402cf7ac) which modifies bucket access permissions.
+
+---
+
 ## Containment
 Containment focuses on reducing further exposure and limiting affected systems. Public access permissions were removed from the affected bucket and IAM activity was reviewed to identify accounts involved in unauthorised actions.
+
+---
 
 ## Recovery Timeline
 
@@ -343,10 +451,14 @@ Containment focuses on reducing further exposure and limiting affected systems. 
 | T0 + 4 hours | Deviations in endpoint configurations are documented | Tier 2 and Tier 3 | Support follow-up remediation and risk reduction |
 | T0 + 1 Day | Postmortem of incident where control gaps are identified | Tier 3 | Improve preventative controls and detection manually |
 
-##SOC Refelection and Lessons Learned
+---
+
+## SOC Refelection and Lessons Learned
 This incident confirms the idea that identity and access management remains a critical attack surface within cloud environments. The absence of enforced multi-factor authentication on privilege IAM accounts, is a critical control gap. Stronger identity controls would have significantly reduced the likelihood and impact of this incident. 
 The investigation also emphasises the operational risk of storage misconfiguration. Public S3 access introduced immediate exposure without requiring any advanced attacker techniques, showing simple configuration errors can have severe consequences. It demonstrates the importance of preventative methods and secure-by-default configurations.
-Overall, the incident demonstrates that effective SOC operations doesn’t rely solely on detection capability but should include preventive controls and governance to reduce the attack surface and incident frequency.  
+Overall, the incident demonstrates that effective SOC operations doesn’t rely solely on detection capability but should include preventive controls and governance to reduce the attack surface and incident frequency. 
+
+---
 
 ## Table 6 -  Recommendations and Action Plan
 | Recommendation | Action Plan | SOC Tier Ownership | Priority | Expected Benefit | Cost and Effort |
@@ -357,8 +469,12 @@ Overall, the incident demonstrates that effective SOC operations doesn’t rely 
 | Conduct periodic ACL audits | Schedule regular reviews of IAM and S3 access controls to identify excessive privileges and misconfigurations | Tier 2 | Medium | Maintain least-privilege access and reduce long-term exposure risk | Low cost. Ongoing operational effort |
 | Standardise OS baselines across endpoints | Enforce standard OS builds aligned with security baselines and ensure consistent patch management | Tier 3 | Medium | Reduces attack surface and simplifies monitoring and incident containment | Moderate cost. Medium remediation effort |
 
+---
+
 # Conclusion
 This investigation shows a structured and diligent approach to incident analysis within a cloud environment.  Conclusions and recommendations were corroborated using official AWS documentation and aligned with recognised industry best practice. Overall, the investigation reflects a high standard of analytical rigour and mirrors real-world SOC methodologies.
+
+---
 
 # Timeline of Events for Enitire Scenario
 Below is the timeline of events for the incident that occured on the 20th of August 2018 indentified through the use of Splunk
