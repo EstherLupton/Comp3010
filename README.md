@@ -4,30 +4,43 @@
 
 ## Table of Contents
 
-- [Executive Summary](#executive-summary)
 - [Introduction](#introduction)
-- [SOC Context & Incident Handling Framework](#soc-context--incident-handling-framework)
+- [SOC Roles & Incident Handling](#soc-roles--incident-handling)
   - [SOC Tiers and Responsibilities](#soc-tiers-and-responsibilities)
     - [Tier 1 (Triage and Monitoring)](#tier-1-triage-and-monitoring)
     - [Tier 2 (Incident Investigation)](#tier-2-incident-investigation)
     - [Tier 3 (Threat Hunting and Specialist Expertise)](#tier-3-threat-hunting-and-specialist-expertise)
-  - [In Context of the Dataset](#in-context-of-the-dataset)
-- [Splunk Installation & Dataset Preparation](#splunk-installation--dataset-preparation)
-  - [Installing Splunk](#installing-splunk)
-  - [Adding the License](#adding-the-license)
-  - [Installing the Dataset](#installing-the-dataset)
-  - [Validation of Correct Installation and Setup](#validation-of-correct-installation-and-setup)
-  - [Stopping Splunk](#stopping-splunk)
+    - [In Context of the Dataset](#in-context-of-the-dataset)
+- [Incident Handling Method](#incident-handling-method)
+  - [Splunk Installation and Data Preparation](#splunk-installiation-and-data-prepration)
+    - [Installing Splunk](#installing-splunk)
+    - [Adding the License](#adding-the-license)
+    - [Installing the Dataset](#installing-the-dataset)
+    - [Validation of Correct Installation and Setup](#validation-of-correct-installation-and-setup)
+    - [Stopping Splunk](#stopping-splunk)
 - [Incident Overview](#incident-overview)
   - [Table 1 - Incident Timeline](#table-1---incident-timeline)
   - [Table 2 - Key Indicators of Compromise](#table-2---key-indicators-of-compromise)
 - [Guided Investigation Findings](#guided-investigation-findings)
-  - [Identity and Access Management Activity](#identity-and-access-management-activity)
+  - [Guided Questions and Answers](#guided-questions-and-answers)
+  - [Indentity and Access Management Activity](#indentity-and-access-management-activity)
   - [Cloud Storage Misconfiguration](#cloud-storage-misconfiguration)
   - [Endpoint Anomaly Detection](#endpoint-anomaly-detection)
   - [Table 3 - Evidence and Best Practices Corroboration](#table-3---evidence-and-best-practices-corroboration)
   - [Table 4 - Damage Assessment](#table-4---damage-assessment)
-- [Operational & Business Impact](#operational--business-impact)
+- [Additional Investigation Findings](#additional-investigation-findings)
+  - [Evidence of Phishing and Malware Execution](#evidence-of-phishing-and-malware-execution)
+  - [Evidence of Command and Control Communication](#evidence-of-command-and-control-communication)
+  - [Evidence of Cryptocurrency Mining Activity](#evidence-of-cryptocurrency-mining-activity)
+  - [Evidence Correlation](#evidence-correlation)
+- [External Threat Intelligence](#external-threat-intelligence)
+  - [Key Observations](#key-observations)
+  - [Coin Mining Malware](#coin-mining-malware)
+  - [Phishing Campaigns](#phishing-campaigns)
+  - [Command-and-control (C2)](#command-and-control-c2)
+  - [S3 Bucket Misconfiguration](#s3-bucket-misconfiguration)
+  - [How This Informs Analysis](#how-this-informs-analysis)
+- [Operational and Business Impact](#operational-and-business-impact)
   - [Impact on SOC Operations and Resources](#impact-on-soc-operations-and-resources)
   - [Impact on Identity and Access Management (IAM)](#impact-on-identity-and-access-management-iam)
   - [Impact on System Availability and Performance](#impact-on-system-availability-and-performance)
@@ -35,15 +48,16 @@
   - [Impact on Security Posture and Future Operations](#impact-on-security-posture-and-future-operations)
   - [Reputational and Compliance Considerations](#reputational-and-compliance-considerations)
   - [Overall Operational Impact](#overall-operational-impact)
-- [Incident Response & Recovery](#incident-response--recovery)
+- [Incident Response and Recovery](#incident-response-and-recovery)
   - [Detection](#detection)
   - [Route Cause](#route-cause)
   - [Containment](#containment)
-  - [Table 5 - Recovery Timeline](#table-5---recovery-timeline)
-- [SOC Reflection & Lessons Learned](#soc-reflection--lessons-learned)
-  - [Table 6 - Recommendations & Action Plan](#table-6---recommendations--action-plan)
+  - [Recovery Timeline](#recovery-timeline)
+- [SOC Refelection and Lessons Learned](#soc-refelection-and-lessons-learned)
+  - [Table 6 - Recommendations and Action Plan](#table-6---recommendations-and-action-plan)
 - [Conclusion](#conclusion)
 - [References](#references)
+- [AI Transcripts](#ai-transcripts)
 
 ---
 
@@ -94,13 +108,13 @@ https://www.splunk.com/en_us/products/splunk-enterprise.html
 
 https://www.splunk.com/en_us/download/splunk-enterprise.html
 
-![alt text](<Screenshot 2025-12-19 113817.png>)
+![Figure 1](<Figure_1.png>)
 
 The .tgz wget link should look a little like this:  
 
 *wget -O splunk-10.0.2-e2d18b4767e9-linux-amd64.tgz "https://download.splunk.com/products/splunk/releases/10.0.2/linux/splunk-10.0.2-e2d18b4767e9-linux-amd64.tgz"*
 
-![alt text](<Screenshot 2025-12-19 113846.png>) 
+![Figure 2](<Figure_2.png>) 
 
 3. Open Ubuntu Virtual Machine
 
@@ -110,36 +124,34 @@ The .tgz wget link should look a little like this:
 
 6. Paste the link into the terminal and execute.
 
-![alt text](<Screenshot 2025-12-19 113952.png>) 
+![Figure 3](<Figure_3.png>) 
 
-![alt text](<Screenshot 2025-12-19 114034.png>) 
+![Figure 4](<Figure_4.png>) 
 
- NOT SURE ![alt text](<Screenshot 2025-12-19 113734v.png>)
+ NOT SURE ![Figure 5](<Figure_5.png>)
 
 7. Install Splunk using the command:  
 
 *sudo tar xvzf splunk-10.0.1-c486717c32b-linux-amd64.tgz -C /opt/*
 
-![alt text](<Screenshot 2025-12-19 114124.png>) 
+![Figure 6](<Figure_6.png>) 
 
-![alt text](<Screenshot 2025-12-19 114142.png>) 
+![Figure 7](<Figure_7.png>) 
 
 
 8. To run Splunk navigate to the directory opt/splunk/bin and use the command:  
 
 *./splunk start --accept-license*
 
-![alt text](<Screenshot 2025-12-19 114303.png>) 
+![Figure 8](<Figure_8.png>) 
 
-![alt text](<Screenshot 2025-12-19 114320.png>)
+![Figure 9](<Figure_9.png>)
 
-![alt text](<Screenshot 2025-12-19 114339.png>) 
+![Figure 10](<Figure_10.png>) 
 
 9. Sign in using an administrator account  
 
-![alt text](<Screenshot 2025-12-19 114406.png>)
-
-![alt text](<Screenshot 2025-12-19 114406.png>)  
+![Figure 11](<Figure_11.png>)
 
 10. Create an administrator account for Splunk
 
@@ -147,7 +159,7 @@ The .tgz wget link should look a little like this:
 
 12. Follow the link to the locally hosted application
 
-![alt text](<Screenshot 2025-12-19 111920.png>)
+![Figure 12](<Figure_12.png>)
 
 ---
 
@@ -155,23 +167,23 @@ The .tgz wget link should look a little like this:
 
 1. Whilst inside the Ubuntu Virtual Machine, navigate to the license file stored on the dle
 
-![alt text](image-32.png)
+![Figure 13](Figure_13.png)
 
 2. Save the file into the downloads
 
-![alt text](image-33.png)
+![Figure 14](Figure_14.png)
 
 3. Run the splunk application
 
-![alt text](image-34.png)
+![Figure 15](Figure_15.png)
 
 4. Open settings and then licensing
 
 5. Upload the license from your downloads to your account
 
-![alt text](image-35.png)
+![Figure 16](Figure_16.png)
 
-![alt text](image-37.png)
+![Figure 17](Figure_17.png)
 
 ---
 
@@ -181,33 +193,33 @@ The .tgz wget link should look a little like this:
 
 https://github.com/splunk/botsv3
 
-![alt text](image.png)
+![Figure 18](Figure_18.png)
 
 2. Download using the link and extract the zip
 
-![alt text](image-38.png)
+![Figure 19](Figure_19.png)
 
 3. Open terminal and enter the command to become the root:  
 
 *sudo su*
 
-![alt text](image-41.png)
+![Figure 20](Figure_20.png)
 
 4. Navigate to the Downloads directory
 
-![alt text](image-42.png)
+![Figure 21](Figure_21.png)
 
-![alt text](image-43.png)
+![Figure 22](Figure_22.png)
 
 5. Enter the command:  
 
 *cp -r botsv3_data_set /opt/splunk/etc/apps*
 
-![alt text](image-44.png)
+![Figure 23](Figure_23.png)
 
 6. Navigate into opt/splunk/etc/apps
 
-![alt text](image-45.png)
+![Figure 24](Figure_24.png)
 
 ---
 
@@ -232,9 +244,9 @@ Theres a range of steps to ensure installation is correct:
 ### Stopping Splunk
 Once you are finished investigating use the command *./splunk stop* to terminate Splunk.
 
-![alt text](image-39.png)
+![Figure 25](Figure_25.png)
 
-![alt text](image-40.png)
+![Figure 26](Figure_26.png)
 
 ---
 
@@ -260,7 +272,7 @@ Events are presented in chronological order to preserve forensic integrity and s
 
 ---
 
-## Tabe 2 - Key Indicators of Compromise
+## Table 2 - Key Indicators of Compromise
 In this incident, the following are the key indicators that the cloud services had been compromised.
 
 | Indicator | Evidence Observed | Security Significance |
@@ -294,17 +306,17 @@ Answer:
 
 bstoll,btun,splunk_access,web_admin
 
-![alt text](image-3.png)
+![Figure 27](Figure_27.png)
 
-![alt text](image-4.png)
+![Figure 28](Figure_28.png)
 
-![alt text](image-5.png)
+![Figure 29](Figure_29.png)
 
-![alt text](image-6.png)
+![Figure 30](Figure_30.png)
 
-![alt text](image-7.png)
+![Figure 31](Figure_31.png)
 
-![alt text](image-8.png)
+![Figure 32](Figure_32.png)
 
 ### Question 2
 Question:
@@ -315,13 +327,13 @@ Answer:
 
 userIdentity.sessionContext.attributes.mfaAuthenticated
 
-![alt text](image-9.png)
+![Figure 33](Figure_33.png)
 
-![alt text](image-10.png)
+![Figure 34](Figure_34.png)
 
-![alt text](image-11.png)
+![Figure 35](Figure_35.png)
 
-![alt text](image-12.png)
+![Figure 36](Figure_36.png)
 
 ### Question 3
 Question:
@@ -333,13 +345,13 @@ Answer:
 
 E5-2676
 
-![alt text](image-13.png)
+![Figure 37](Figure_37.png)
 
-![alt text](image-14.png)
+![Figure 38](Figure_38.png)
 
-![alt text](image-15.png)
+![Figure 39](Figure_39.png)
 
-![alt text](image-16.png)
+![Figure 40](Figure_40.png)
 
 ### Question 4
 Question:
@@ -351,9 +363,9 @@ Answer:
 
 ab45689d-69cd-41e7-8705-5350402cf7ac
 
-![alt text](image-17.png)
+![Figure 41](Figure_41.png)
 
-![alt text](image-18.png)
+![Figure 42](Figure_42.png)
 
 ### Question 5
 Question:
@@ -364,7 +376,7 @@ Answer:
 
 bstoll
 
-![alt text](image-19.png)
+![Figure 43](Figure_43.png)
 
 ### Question 6
 
@@ -376,7 +388,7 @@ Answer:
 
 frothlywebcode
 
-![alt text](image-20.png)
+![Figure 44](Figure_44.png)
 
 ### Question 7
 Question:
@@ -387,11 +399,11 @@ Answer:
 
 OPEN_BUCKET_PLEASE_FIX.txt
 
-![alt text](image-21.png)
+![Figure 45](Figure_45.png)
 
-![alt text](image-22.png)
+![Figure 46](Figure_46.png)
 
-![alt text](image-23.png)
+![Figure 47](Figure_47.png)
 
 ### Question 8
 Question:
@@ -402,17 +414,17 @@ Answer:
 
 BSTOLL-L.froth.ly
 
-![alt text](image-24.png)
+![Figure 48](Figure_48.png)
 
-![alt text](image-25.png)
+![Figure 49](Figure_49.png)
 
-![alt text](image-26.png)
+![Figure 50](Figure_50.png)
 
-![alt text](image-27.png)
+![Figure 51](Figure_51.png)
 
-![alt text](image-28.png)
+![Figure 52](Figure_52.png)
 
-![alt text](image-29.png)
+![Figure 53](Figure_53.png)
 
 ---
 
@@ -466,9 +478,9 @@ Whilst working through the guided questions I notied there were also some import
 ## Evidence of Phishing and Malware Execution
 Anlaysis of email and endpoint telemtry identifed a phishing based infection on multiple workstations, including FYODOR-L, BGIST-L and PCERF-L. A Microsoft Excel attachment with a malicious payload (HxTsr.exe) was delivered by email and subsequently executed by the user BGIST-L. HxTsr.exe is the inital infection stage that enabled subsequent attacker actions obeserved late in the incident.
 
-![alt text](image-47.png)
+![Figure 54](Figure_54.png)
 
-![alt text](image-52.png)
+![Figure 55](Figure_55.png)
 
 This confirms endpoint compromise and shows how email social engineering was used to gain access to an environment.
 
@@ -479,17 +491,17 @@ Following the execution, the compromised host iniiated communication with the at
 ## Evidence of Cryptocurrency Mining Activity
 Additional analysis showed cyrptocurrency mining on the compromised host. DNS logs revealed Coinhive-related domain lookups including coinhive.com and ws09.coinhive.com,, origionating from the Ip address 192.168.247.131, cosistent with Monero mining. 
 
-![alt text](image-46.png)
+![Figure 56](Figure_56.png)
 
 Splunk analysis maps the internal Ip address 192.168.247.131 to the hosts BSTOLL-L and MKRAEUS-L confriming the mining orignated from legitimate corparate endpoints.
 
-![alt text](image-50.png)
+![Figure 57](Figure_57.png)
 
-![alt text](image-49.png)
+![Figure 58](Figure_58.png)
 
-![alt text](image-51.png)
+![Figure 59](Figure_59.png)
 
-![alt text](image-53.png)
+![Figure 60](Figure_60.png)
 
 The presense of these DNS queries confirms using organisation resources for financial gain resulting in increaed system stress.
 
@@ -498,11 +510,11 @@ Correlation of email logs, network acitivty and endpoint telemtry confrims that 
 
 ---
 
-## External Threat Intelligence
+# External Threat Intelligence
 
 External threat intelligence sources were consulted to provide context for the attacks and misconfiguartions observed in the dataset. This section highlights real-world indicators, malware campaigns, and cloud security issues relevant to the simulated threats.
 
-### Key Observations
+## Key Observations
 
 ## Coin Mining Malware
 Javascript-based coin miners have been widely observed as using organisation endpoints through web-based vectors to targting Monero, due to its CPU-optimized alogrithm according to [Paloalto](https://www.paloaltonetworks.com/cyberpedia/threat-brief-browser-cryptocurrency-mining). Typical behavoir includes intensive scripts running on host browsers and propagating through malicious websites or ads. Recommendations from [IBM](https://www.ibm.com/think/topics/cryptojacking) suggest using an EDR, antivirus and regular CPU conitoring.
@@ -514,10 +526,10 @@ Phishing remains a primary attack vector according to [ENISA](https://www.enisa.
 [MITRE Attacks](https://attack.mitre.org/tactics/TA0011/) identifed C2 operatiosns as frequently using repeated outbound connections to attacker-controlled servers, often over standard protocols or custom ports. This is to lay undetected by blending in with expected traffic. [Crowdstrike](https://www.crowdstrike.com/en-us/cybersecurity-101/cyberattacks/command-and-control-cac-attack/) states how some attackers used existing cloud-servcies to hide C and C servers, and that DNS is a widely used communication channel for communciations.
 
 ## S3 Bucket Misconfiguration
-Misconfigured S3 buckets are a frequent source of data exposure in real-world incident.[ORCA](https://orca.security/wp-content/uploads/2025/06/2025-State-of-Cloud-Security-Report-v2.pdf) reports that 17% of organisations have atleast one Iac arifact that configures S3 buckets to grant GET (read) access to anyone on the internet.
+Misconfigured S3 buckets are a frequent source of data exposure in real-world incident. [ORCA](https://orca.security/wp-content/uploads/2025/06/2025-State-of-Cloud-Security-Report-v2.pdf) reports that 17% of organisations have atleast one Iac arifact that configures S3 buckets to grant GET (read) access to anyone on the internet.
 Accident public buckets can result in data theft, ransom or leaking sensitive data. [Cloud Storage Security](https://cloudstoragesecurity.com/news/anatomy-of-an-s3-exposure-273k-bank-transfer-pdfs-left-open-online) identifies four main issues in containing an S3 inciden: lack or authoritive storage inventory, lack of data classification and sensitivity labelling, limited visibility into object level activity and owership gaps.
 
-### How This Informs Analysis
+## How This Informs Analysis
 External intelligence validates that the threats simulated in BOTSv3 align with real-world attack trends. Coin mining, phishing, C2 activity, and cloud misconfigurations in the dataset mirror incidents regularly observed in enterprise environments. Highlighting S3 misconfigurations reinforces the importance of cloud security hygiene and monitoring.
 
 ---
