@@ -52,7 +52,7 @@
   - [Detection](#detection)
   - [Route Cause](#route-cause)
   - [Containment](#containment)
-  - [Recovery Timeline](#recovery-timeline)
+  - [Table 5 - Recovery Timeline](#table-5---recovery-timeline)
 - [SOC Refelection and Lessons Learned](#soc-refelection-and-lessons-learned)
   - [Table 6 - Recommendations and Action Plan](#table-6---recommendations-and-action-plan)
 - [Conclusion](#conclusion)
@@ -597,7 +597,7 @@ Containment focuses on reducing further exposure and limiting affected systems. 
 
 ---
 
-## Recovery Timeline
+## Table 5 - Recovery Timeline
 
 | Time Relative to Incident | Recovery Action | SOC Tier Involved | Purpose |
 |---------------------------|----------------|-----------------|---------|
