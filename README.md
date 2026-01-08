@@ -61,6 +61,12 @@
 
 ---
 
+Link to Youtube video presentation:
+
+https://youtu.be/oHWJ9K-u9I0
+
+---
+
 # Introduction
 This report investigates Boss of the SOC v3 (BOTSv3) dataset, which is a publicly available Splunk Capture the Flag scenario which simulates a cyber-attack against the fictional brewing company Frothly. The Capture the Flag (CTF) is designed for security operational professionals to practice their incident detection and network forensics skills. Analyst are based in the Security Operations Centre (SOC).
 
@@ -293,6 +299,7 @@ In this incident, the following are the key indicators that the cloud services h
 ---
 
 ## Guided Questions and Answers
+Please note evidence shows time as an hour ahead due to time differences.
 ### Question 1
 Question:
 
