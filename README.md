@@ -283,85 +283,135 @@ In this incident, the following are the key indicators that the cloud services h
 ## Guided Questions and Answers
 ### Question 1
 Question:
-<br>You're tasked to find the IAM (Identity & Access Management) users that accessed
-an AWS service in Frothly's AWS environment.<br> <br>
+
+You're tasked to find the IAM (Identity & Access Management) users that accessed
+an AWS service in Frothly's AWS environment.
+
 List out the IAM users that accessed an AWS service (successfully or
 unsuccessfully) in Frothly's AWS environment?
-<br>
-<br>Answer:
+
+Answer: 
+
+bstoll,btun,splunk_access,web_admin
+
 ![alt text](image-3.png)
+
 ![alt text](image-4.png)
+
 ![alt text](image-5.png)
+
 ![alt text](image-6.png)
+
 ![alt text](image-7.png)
+
 ![alt text](image-8.png)
 
 ### Question 2
 Question:
-<br>
+
 What field would you use to alert that AWS API activity has occurred without MFA (multi-factor authentication)?
-<br>
-<br>Answer:
+
+Answer: 
+
+userIdentity.sessionContext.attributes.mfaAuthenticated
+
 ![alt text](image-9.png)
+
 ![alt text](image-10.png)
+
 ![alt text](image-11.png)
+
 ![alt text](image-12.png)
 
 ### Question 3
 Question:
-<br>Look at the source types available in the dataset. There might be one in particular that holds information on hardware, such as processors.
+
+Look at the source types available in the dataset. There might be one in particular that holds information on hardware, such as processors.
 What is the processor number used on the web servers?
-<br>
-<br>Answer:
+
+Answer:
+
+E5-2676
+
 ![alt text](image-13.png)
+
 ![alt text](image-14.png)
+
 ![alt text](image-15.png)
+
 ![alt text](image-16.png)
 
 ### Question 4
 Question:
-<br> Bud accidentally makes an S3 bucket publicly accessible. What is the
+
+Bud accidentally makes an S3 bucket publicly accessible. What is the
 event ID of the API call that enabled public access?
-<br>
-<br>Answer:
+
+Answer:
+
+ab45689d-69cd-41e7-8705-5350402cf7ac
+
 ![alt text](image-17.png)
+
 ![alt text](image-18.png)
 
 ### Question 5
 Question:
-<br>What is Bud's username?
-<br>
-<br>Answer:
+
+What is Bud's username?
+
+Answer:
+
+bstoll
+
 ![alt text](image-19.png)
 
 ### Question 6
+
 Question:
-<br>What is the name of the S3 bucket that was made publicly accessible?
-<br>
-<br>Answer: 
+
+What is the name of the S3 bucket that was made publicly accessible?
+
+Answer: 
+
+frothlywebcode
+
 ![alt text](image-20.png)
 
 ### Question 7
 Question:
-<br>
+
 What is the name of the text file that was successfully uploaded into the S3 bucket while it was publicly accessible?
-<br>
-<br>Answer:
+
+Answer:
+
+OPEN_BUCKET_PLEASE_FIX.txt
+
 ![alt text](image-21.png)
+
 ![alt text](image-22.png)
+
 ![alt text](image-23.png)
 
 ### Question 8
 Question:
-<br>
+
 What is the FQDN of the endpoint that is running a different Windows operating system edition than the others?
-<br>
-<br>Answer:
+
+Answer:
+
+BSTOLL-L.froth.ly
+
 ![alt text](image-24.png)
+
 ![alt text](image-25.png)
+
 ![alt text](image-26.png)
+
 ![alt text](image-27.png)
+
 ![alt text](image-28.png)
+
 ![alt text](image-29.png)
 
 ---
@@ -407,6 +457,35 @@ Inconsistent endpoint configurations increase operational risk by complicating p
 | Endpoint Security | Non-standard OS configuration identified | Low to Medium | Increases operational risk, complicates patch management and incident handling |
 | SOC Operations | Increased investigation and response workload | Medium | Analyst resources diverted from proactive monitoring to threat hunting |
 | Business Operations | Potential disruption due to access review and remediation | Low | No confirmed service outage, but recovery actions may delay workflows and productivity |
+
+---
+
+# Additional Investigation Findings
+Whilst working through the guided questions I notied there were also some important aspect of the incident not covered.
+
+## Evidence of Phishing and Malware Execution
+Anlaysis of email and endpoint telemtry identifed a phishing based infection on a workstation. A Microsoft Excel attachment with a malicious payload (HxTsr.exe) was delivered by email ans subsequently executed by the user. Sysmon logs confirmed the executable originated from an email attachment.
+
+SCREENSHOT
+
+This confirms endpoint compromise and shows how email social engineering was used to gain access to an environment.
+
+## Evidence of Command and Control Communication
+Following the execution, the compromised host iniiated communication with the attackers external infrasturcture. Repeated connections were made over a short period of time indicating command-and-control communication.
+
+SCREENSHOT
+
+This shows the attacker maintained control of the compromised host after initial infection.
+
+## Evidence of Cryptocurrency Mining Activity
+Additional analysis showed cyrptocurrency mining on the compromised host. DNS logs revealed Coinhive-related domain lookups, cosistent with Monero mining. 
+
+SCREENSHOT
+
+This is an example of using organisation resources for financial gain resulting in increaed system stress.
+
+## Evidence Correlation
+Correlation of email logs, network acitivty and endpoint telemtry confrims that these activies are part of a continous attack chain rather than isolated events.
 
 ---
 
@@ -644,89 +723,7 @@ Additional cloud servers were automatically created, likely as a result of the e
 
 Toward the end of the incident, attackers attempted automated login attacks against company web servers and then launched another attack aimed at extracting stored data. An email was later sent claiming that customer data had been successfully stolen, indicating a high risk of data exposure and potential reputational and regulatory impact.
 
-# Guided Questions
-## Question 1
-Question:
-<br>You're tasked to find the IAM (Identity & Access Management) users that accessed
-an AWS service in Frothly's AWS environment.<br> <br>
-List out the IAM users that accessed an AWS service (successfully or
-unsuccessfully) in Frothly's AWS environment?
-<br>
-<br>Answer:
-![alt text](image-3.png)
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
-![alt text](image-7.png)
-![alt text](image-8.png)
 
-## Question 2
-Question:
-<br>
-What field would you use to alert that AWS API activity has occurred without MFA (multi-factor authentication)?
-<br>
-<br>Answer:
-![alt text](image-9.png)
-![alt text](image-10.png)
-![alt text](image-11.png)
-![alt text](image-12.png)
-
-## Question 3
-Question:
-<br>Look at the source types available in the dataset. There might be one in particular that holds information on hardware, such as processors.
-What is the processor number used on the web servers?
-<br>
-<br>Answer:
-![alt text](image-13.png)
-![alt text](image-14.png)
-![alt text](image-15.png)
-![alt text](image-16.png)
-
-## Question 4
-Question:
-<br> Bud accidentally makes an S3 bucket publicly accessible. What is the
-event ID of the API call that enabled public access?
-<br>
-<br>Answer:
-![alt text](image-17.png)
-![alt text](image-18.png)
-
-## Question 5
-Question:
-<br>What is Bud's username?
-<br>
-<br>Answer:
-![alt text](image-19.png)
-
-## Question 6
-Question:
-<br>What is the name of the S3 bucket that was made publicly accessible?
-<br>
-<br>Answer: 
-![alt text](image-20.png)
-
-## Question 7
-Question:
-<br>
-What is the name of the text file that was successfully uploaded into the S3 bucket while it was publicly accessible?
-<br>
-<br>Answer:
-![alt text](image-21.png)
-![alt text](image-22.png)
-![alt text](image-23.png)
-
-## Question 8
-Question:
-<br>
-What is the FQDN of the endpoint that is running a different Windows operating system edition than the others?
-<br>
-<br>Answer:
-![alt text](image-24.png)
-![alt text](image-25.png)
-![alt text](image-26.png)
-![alt text](image-27.png)
-![alt text](image-28.png)
-![alt text](image-29.png)
 
 # References
 
