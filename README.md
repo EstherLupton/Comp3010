@@ -87,15 +87,21 @@ Below are step by step instructions which I took to investigate the BOTSv3 datas
 ### Installing Splunk
 
 1. Create an account with Splunk Enterprise  
+
 https://www.splunk.com/en_us/products/splunk-enterprise.html
 
-2. Navigate to the Linux download and copy the .tgz wget link.  
+2. Navigate to the Linux download and copy the .tgz wget link. 
+
 https://www.splunk.com/en_us/download/splunk-enterprise.html
+
 ![alt text](<Screenshot 2025-12-19 113817.png>)
 
 The .tgz wget link should look a little like this:  
+
 *wget -O splunk-10.0.2-e2d18b4767e9-linux-amd64.tgz "https://download.splunk.com/products/splunk/releases/10.0.2/linux/splunk-10.0.2-e2d18b4767e9-linux-amd64.tgz"*
+
 ![alt text](<Screenshot 2025-12-19 113846.png>) 
+
 3. Open Ubuntu Virtual Machine
 
 4. Open terminal on the VM
@@ -105,26 +111,34 @@ The .tgz wget link should look a little like this:
 6. Paste the link into the terminal and execute.
 
 ![alt text](<Screenshot 2025-12-19 113952.png>) 
+
 ![alt text](<Screenshot 2025-12-19 114034.png>) 
 
  NOT SURE ![alt text](<Screenshot 2025-12-19 113734v.png>)
 
 7. Install Splunk using the command:  
+
 *sudo tar xvzf splunk-10.0.1-c486717c32b-linux-amd64.tgz -C /opt/*
+
 ![alt text](<Screenshot 2025-12-19 114124.png>) 
 
 ![alt text](<Screenshot 2025-12-19 114142.png>) 
 
 
 8. To run Splunk navigate to the directory opt/splunk/bin and use the command:  
+
 *./splunk start --accept-license*
+
 ![alt text](<Screenshot 2025-12-19 114303.png>) 
 
-![alt text](<Screenshot 2025-12-19 114320.png>) 
+![alt text](<Screenshot 2025-12-19 114320.png>)
+
 ![alt text](<Screenshot 2025-12-19 114339.png>) 
 
 9. Sign in using an administrator account  
+
 ![alt text](<Screenshot 2025-12-19 114406.png>)
+
 ![alt text](<Screenshot 2025-12-19 114406.png>)  
 
 10. Create an administrator account for Splunk
@@ -132,6 +146,7 @@ The .tgz wget link should look a little like this:
 11. Sign in when prompted
 
 12. Follow the link to the locally hosted application
+
 ![alt text](<Screenshot 2025-12-19 111920.png>)
 
 ---
@@ -139,18 +154,23 @@ The .tgz wget link should look a little like this:
 ### Adding the License
 
 1. Whilst inside the Ubuntu Virtual Machine, navigate to the license file stored on the dle
+
 ![alt text](image-32.png)
 
 2. Save the file into the downloads
+
 ![alt text](image-33.png)
 
 3. Run the splunk application
+
 ![alt text](image-34.png)
 
 4. Open settings and then licensing
 
 5. Upload the license from your downloads to your account
+
 ![alt text](image-35.png)
+
 ![alt text](image-37.png)
 
 ---
@@ -158,25 +178,35 @@ The .tgz wget link should look a little like this:
 ### Installing the Dataset
 
 1. Whilst inside the VM, navigate to the Boss of the SOC (BOTS) Dataset Version 3 GitHub page  
+
 https://github.com/splunk/botsv3
+
 ![alt text](image.png)
 
 2. Download using the link and extract the zip
+
 ![alt text](image-38.png)
 
 3. Open terminal and enter the command to become the root:  
+
 *sudo su*
+
 ![alt text](image-41.png)
 
 4. Navigate to the Downloads directory
+
 ![alt text](image-42.png)
+
 ![alt text](image-43.png)
 
 5. Enter the command:  
+
 *cp -r botsv3_data_set /opt/splunk/etc/apps*
+
 ![alt text](image-44.png)
 
 6. Navigate into opt/splunk/etc/apps
+
 ![alt text](image-45.png)
 
 ---
@@ -186,6 +216,7 @@ https://github.com/splunk/botsv3
 Theres a range of steps to ensure installation is correct:
 
 1. To verify Splunk is running you will be able to access it by the web interface typically at http://localhost:8000, to start splunk use the command:  
+
 *./splunk start*
 
 2. To confirm the license was correctly applied, navigate to settings, then licensing inside Splunk and see there’s no warnings or violations
@@ -193,13 +224,16 @@ Theres a range of steps to ensure installation is correct:
 3. To check the BOTS V3 Dataset is correctly installed, navigate to the /opt/splunk/etc/apps directory, run the command *ls* and see the dataset file
 
 4. To validate data inside of Splunk, run the following search inside the application:  
+
 *index=botsv3*
 
 ---
 
 ### Stopping Splunk
 Once you are finished investigating use the command *./splunk stop* to terminate Splunk.
+
 ![alt text](image-39.png)
+
 ![alt text](image-40.png)
 
 ---
