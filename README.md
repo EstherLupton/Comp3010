@@ -43,7 +43,7 @@
 - [SOC Reflection & Lessons Learned](#soc-reflection--lessons-learned)
   - [Table 6 - Recommendations & Action Plan](#table-6---recommendations--action-plan)
 - [Conclusion](#conclusion)
-- [Bibliography](#bibliography)
+- [References](#references)
 
 ---
 
@@ -464,28 +464,61 @@ Inconsistent endpoint configurations increase operational risk by complicating p
 Whilst working through the guided questions I notied there were also some important aspect of the incident not covered.
 
 ## Evidence of Phishing and Malware Execution
-Anlaysis of email and endpoint telemtry identifed a phishing based infection on a workstation. A Microsoft Excel attachment with a malicious payload (HxTsr.exe) was delivered by email ans subsequently executed by the user. Sysmon logs confirmed the executable originated from an email attachment.
+Anlaysis of email and endpoint telemtry identifed a phishing based infection on multiple workstations, including FYODOR-L, BGIST-L and PCERF-L. A Microsoft Excel attachment with a malicious payload (HxTsr.exe) was delivered by email and subsequently executed by the user BGIST-L. HxTsr.exe is the inital infection stage that enabled subsequent attacker actions obeserved late in the incident.
 
-SCREENSHOT
+![alt text](image-47.png)
+
+![alt text](image-52.png)
 
 This confirms endpoint compromise and shows how email social engineering was used to gain access to an environment.
 
 ## Evidence of Command and Control Communication
 Following the execution, the compromised host iniiated communication with the attackers external infrasturcture. Repeated connections were made over a short period of time indicating command-and-control communication.
 
-SCREENSHOT
-
-This shows the attacker maintained control of the compromised host after initial infection.
 
 ## Evidence of Cryptocurrency Mining Activity
-Additional analysis showed cyrptocurrency mining on the compromised host. DNS logs revealed Coinhive-related domain lookups, cosistent with Monero mining. 
+Additional analysis showed cyrptocurrency mining on the compromised host. DNS logs revealed Coinhive-related domain lookups including coinhive.com and ws09.coinhive.com,, origionating from the Ip address 192.168.247.131, cosistent with Monero mining. 
 
-SCREENSHOT
+![alt text](image-46.png)
 
-This is an example of using organisation resources for financial gain resulting in increaed system stress.
+Splunk analysis maps the internal Ip address 192.168.247.131 to the hosts BSTOLL-L and MKRAEUS-L confriming the mining orignated from legitimate corparate endpoints.
+
+![alt text](image-50.png)
+
+![alt text](image-49.png)
+
+![alt text](image-51.png)
+
+![alt text](image-53.png)
+
+The presense of these DNS queries confirms using organisation resources for financial gain resulting in increaed system stress.
 
 ## Evidence Correlation
 Correlation of email logs, network acitivty and endpoint telemtry confrims that these activies are part of a continous attack chain rather than isolated events.
+
+---
+
+## External Threat Intelligence
+
+External threat intelligence sources were consulted to provide context for the attacks and misconfiguartions observed in the dataset. This section highlights real-world indicators, malware campaigns, and cloud security issues relevant to the simulated threats.
+
+### Key Observations
+
+## Coin Mining Malware
+Javascript-based coin miners have been widely observed as using organisation endpoints through web-based vectors to targting Monero, due to its CPU-optimized alogrithm according to [Paloalto](https://www.paloaltonetworks.com/cyberpedia/threat-brief-browser-cryptocurrency-mining). Typical behavoir includes intensive scripts running on host browsers and propagating through malicious websites or ads. Recommendations from [IBM](https://www.ibm.com/think/topics/cryptojacking) suggest using an EDR, antivirus and regular CPU conitoring.
+
+## Phishing Campaigns
+Phishing remains a primary attack vector according to [ENISA](https://www.enisa.europa.eu/publications/enisa-threat-landscape-2025) for all organsiations, often delivering ransomeware, spyware of trojan horses. Indicators of phishing attacks include suspicicous email attachments or links which then allow maliocus payloads to be executed. [CISA](https://www.cisa.gov/sites/default/files/publications/fact-sheet-implementing-phishing-resistant-mfa-508c.pdf) recommends using MFA or using once-time passwords for authenitication.
+
+## Command-and-control (C2) 
+[MITRE Attacks](https://attack.mitre.org/tactics/TA0011/) identifed C2 operatiosns as frequently using repeated outbound connections to attacker-controlled servers, often over standard protocols or custom ports. This is to lay undetected by blending in with expected traffic. [Crowdstrike](https://www.crowdstrike.com/en-us/cybersecurity-101/cyberattacks/command-and-control-cac-attack/) states how some attackers used existing cloud-servcies to hide C and C servers, and that DNS is a widely used communication channel for communciations.
+
+## S3 Bucket Misconfiguration
+Misconfigured S3 buckets are a frequent source of data exposure in real-world incident.[ORCA](https://orca.security/wp-content/uploads/2025/06/2025-State-of-Cloud-Security-Report-v2.pdf) reports that 17% of organisations have atleast one Iac arifact that configures S3 buckets to grant GET (read) access to anyone on the internet.
+Accident public buckets can result in data theft, ransom or leaking sensitive data. [Cloud Storage Security](https://cloudstoragesecurity.com/news/anatomy-of-an-s3-exposure-273k-bank-transfer-pdfs-left-open-online) identifies four main issues in containing an S3 inciden: lack or authoritive storage inventory, lack of data classification and sensitivity labelling, limited visibility into object level activity and owership gaps.
+
+### How This Informs Analysis
+External intelligence validates that the threats simulated in BOTSv3 align with real-world attack trends. Coin mining, phishing, C2 activity, and cloud misconfigurations in the dataset mirror incidents regularly observed in enterprise environments. Highlighting S3 misconfigurations reinforces the importance of cloud security hygiene and monitoring.
 
 ---
 
@@ -589,170 +622,155 @@ This investigation shows a structured and diligent approach to incident analysis
 
 ---
 
-# Timeline of Events for Enitire Scenario
-Below is the timeline of events for the incident that occured on the 20th of August 2018 indentified through the use of Splunk
-
-09:16:12 The IAM user AKIAJOGCDXJ5NW5PXUPA/web_admin begins attempting to access IAM resources.
-
-09:16:12 The same user attempts to create a user named nullweb_admin Xenial Xerus instance.
-
-09:16:12 An email alert reports that the credentials for AKIAJOGCDXJ5NW5PXUPA/web_admin were discovered on GitHub.
-
-09:27:06 The user attempts to describe the AWS account.
-
-09:27:07 IAM access attempts by AKIAJOGCDXJ5NW5PXUPA/web_admin conclude.
-
-An attacker gained access to a cloud administrator account after its credentials were accidentally exposed on GitHub. They briefly explored the cloud environment, attempted to create a new user for persistent access, and tried to launch a virtual server before the activity was detected and access was terminated.
-
-09:55:14 A malicious email attachment titled Frothly-Brewery-Financial-Planning-FY2019-Draft.xlsm is received.
-
-09:55:52 Sysmon detects execution of HxTsr.exe, originating from the malicious attachment.
-
-09:56:39 Symantec also detects HxTsr.exe as malicious.
-
-09:57:17 Image files (stout.png, stout-2.png, morebeer.jpg) are uploaded to OneDrive.
-
-09:57:33 A shortcut file named BRUCE BIRTHDAY HAPPY HOUR PICS.lnk is uploaded to OneDrive.
-
-09:59:04 The shortcut file is executed for the first time.
-
-A staff member received a convincing email with what appeared to be a legitimate financial spreadsheet, but the attachment was malicious. When it was opened, harmful software was quietly installed on the computer, which security tools later detected. The attacker then hid their access by uploading harmless-looking files and a shortcut to the user’s OneDrive, allowing the malware to be re-activated later without relying on the original email.
-
-10:01:44 The compromised host establishes its first connection to a command-and-control (C2) server.
-
-10:07:07 Additional communication with the C2 server is observed.
-
-10:08:17 A new Windows account named svcvnc is created.
-
-10:08:17 The svcvnc account is added to the Administrators group.
-
-10:08:35 The svcvnc account is also added to the Users group.
-
-10:11:02 Further C2 communication takes place.
-
-10:15:28 Another C2 server connection is recorded.
-
-Once the computer was infected, it began communicating with an external server controlled by the attacker, allowing them to issue commands remotely. The attacker then created a new user account on the system and gave it full administrative access, ensuring continued control even if the original compromise was discovered. Regular communication with the external server continued, confirming the attacker maintained active control of the system.
-
-10:43:10 The malware hdoor.exe performs network scanning activity.
-
-10:47:16 A file named logos.png, containing attack tools, is downloaded from 45.77.53.176:3333.
-
-10:48:28 Searches are conducted for the keywords “cromdale OR beer OR financial OR secret”.
-
-The attacker began scanning the internal network to identify other systems and valuable information, downloaded additional attack tools disguised as an image file, and searched for sensitive business and financial data within the environment.
-
-11:05:4 The first instance of remote code execution occurs using iexplorer.exe, exploiting CVE-2017-9791.
-11:08:36 A file named colonel is streamed using iexplorer.exe.
-
-11:08:48 The file definitelydontinvestigatethisfile.sh is streamed via the same process.
-
-11:21:40 A BCC email forwarding rule is added, redirecting mail to hyunki1984@naver.com
-
-The attacker exploited a known software weakness to remotely run their own commands on the system and transfer additional files to it. They then set up a hidden email forwarding rule so that copies of company emails were secretly sent to an external address, allowing ongoing monitoring and potential data theft without the user’s knowledge.
-
-11:24:28 The Kevin Lagerfield Azure AD account is activated.
-
-11:24:54 A Linux account named tomcat7 is created.
-
-11:28:30 The shortcut file BRUCE BIRTHDAY HAPPY HOUR PICS.lnk is executed for the final time.
-
-11:31:54 Netcat begins listening on port 1337.
-
-11:32:14 Another connection to the C2 server is established.
-
-11:34:01 The final remote code execution using iexplorer.exe (CVE-2017-9791) occurs.
-
-11:34:49 The tomcat8 account executes ./colonelnew, achieving root privilege escalation via CVE-2017-16995.
-
-The attacker activated additional user accounts across cloud and server systems, likely to expand and preserve access. They reused the earlier malicious shortcut to re-trigger the infection, opened a hidden backdoor that allowed direct remote access, and continued communicating with their external control server. Finally, they exploited another system weakness to gain full control of a server, giving them unrestricted access to data and system functions.
-
-11:41:36 The password for the Kevin Lagerfield Azure AD account is reset.
-
-11:42:51 A second password reset is performed on the same account.
-
-11:43:22 The account password is changed.
-
-11:48:38 The root user deletes /usr/share/tomcat8/.bash_history to remove evidence.
-
-11:55:34 Netcat stops listening on port 1337.
-
-The attacker took control of a user account by repeatedly resetting and changing its password, locking out the legitimate user. They then deleted system history records to hide evidence of their actions and closed the temporary remote access channel, indicating an attempt to cover their tracks after completing their activity.
-
-13:01:46 The frothlywebcode S3 bucket is configured to be publicly accessible.
-
-13:02:44 A file named OPEN_BUCKET_PLEASE_FIX.txt is uploaded to the bucket.
-
-13:04:17 The archive frothly_html_memcached.tar.gz is uploaded to the same bucket.
-
-The attacker changed the settings on a company cloud storage location to make it publicly accessible, exposing its contents to anyone on the internet. They then uploaded files to the storage area, including an archive likely containing internal data, increasing the risk of data exposure or unauthorised access.
-
-13:33:24 EC2 instance gacrux.i-0cc93bade2b3cba63 is auto-scaled.
-
-13:37:33 A Coinhive DNS lookup is detected on BSTOLL-L.
-
-13:37:40 The first detection of BTUN-L JSCoinMiner occurs.
-
-13:37:50 Chrome-based Monero mining begins on BSTOLL-L.
-
-13:46:47 The final detection of BTUN-L JSCoinMiner is logged.
-
-13:57:54 The frothlywebcode S3 bucket is returned to private access.
-
-14:05:23 Monero mining activity on BSTOLL-L ends.
-
-The attacker triggered the automatic creation of additional cloud servers and then used a compromised company computer to secretly run cryptocurrency-mining software for personal gain. This misuse consumed company computing resources and could have increased costs and reduced system performance. Access to the exposed cloud storage was later restricted again, and the unauthorised mining activity eventually stopped.
-
-14:23:19 EC2 instance gacrux.i-06fea586f3d3c8ce8 is auto-scaled.
-
-14:25:21 EC2 instance gacrux.i-09cbc261e84259b54 is auto-scaled.
-
-14:47:12 Azure AD account bgist@froth.ly is disabled by fyodor@froth.ly
-
-Additional cloud servers were automatically created, likely as a result of the earlier compromise, increasing resource usage and potential costs. Later in the day, a company administrator disabled a user account, indicating that remediation actions had begun to contain and limit the incident.
-
-15:07:22 A brute-force attack against web servers originating from 5.101.40.81 begins.
-
-15:08:12 The brute-force activity ends.
-
-15:11:35 A Memcached attack starts.
-
-15:27:09 The Memcached attack concludes.
-
-15:15:00 An email is sent boasting about the successful exfiltration of customer data.
-
-Toward the end of the incident, attackers attempted automated login attacks against company web servers and then launched another attack aimed at extracting stored data. An email was later sent claiming that customer data had been successfully stolen, indicating a high risk of data exposure and potential reputational and regulatory impact.
-
----
-
 # References
----
-
-- **AWS.** (n.d.). *Blocking public access to your Amazon S3 storage*.  
-  AWS Documentation.  
-  https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html
-
-- **AWS.** (n.d.). *Logging IAM and AWS STS API calls with AWS CloudTrail*.  
-  AWS Documentation.  
-  https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html
-
-- **AWS.** (n.d.). *Security best practices for Amazon S3*.  
-  AWS Documentation.  
-  https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html
-
-- **AWS.** (n.d.). *Security best practices in IAM*.  
-  AWS Documentation.  
-  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
-
-- **Agyepong, E., & Chen, Y.** (2020). *Towards a framework for measuring the performance of a Security Operations Center analyst*.  
-  IEEE.  
-  https://ieeexplore.ieee.org/document/9138872/
-
-- **Microsoft.** (n.d.). *Security baselines*.  
-  Microsoft Learn.  
-  https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/windows-security-configuration-framework/windows-security-baselines
 
 ---
+
+- **AWS.** (n.d.). *Blocking public access to your Amazon S3 storage*. AWS Documentation. [Link](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html)
+- **AWS.** (n.d.). *Logging IAM and AWS STS API calls with AWS CloudTrail*. AWS Documentation. [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html)
+- **AWS.** (n.d.). *Security best practices for Amazon S3*. AWS Documentation. [Link](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html)
+- **AWS.** (n.d.). *Security best practices in IAM*. AWS Documentation. [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
+- **Agyepong, E., & Chen, Y.** (2020). *Towards a framework for measuring the performance of a Security Operations Center analyst*. IEEE. [Link](https://ieeexplore.ieee.org/document/9138872/)
+- **CISA.** (2025). *Fact Sheet: Implementing Phishing-Resistant MFA*. Cybersecurity & Infrastructure Security Agency. [Link](https://www.cisa.gov/sites/default/files/publications/fact-sheet-implementing-phishing-resistant-mfa-508c.pdf)
+- **Cloud Storage Security.** (2025). *Public S3 Bucket Exposure: Misconfiguration Risks in 2025*. [Link](https://cloudstoragesecurity.com/news/anatomy-of-an-s3-exposure-273k-bank-transfer-pdfs-left-open-online)
+- **CrowdStrike.** (2025). *Command and Control (C2) Attacks Explained*. CrowdStrike Cybersecurity 101. [Link](https://www.crowdstrike.com/cybersecurity-101/cyberattacks/command-and-control-cac-attack/)
+- **ENISA.** (2025). *ENISA Threat Landscape 2025*. European Union Agency for Cybersecurity. [Link](https://www.enisa.europa.eu/publications/enisa-threat-landscape-2025)
+- **IBM.** (2025). *What is Cryptojacking?* IBM Think. [Link](https://www.ibm.com/think/topics/cryptojacking)
+- **Microsoft.** (n.d.). *Security baselines*. Microsoft Learn. [Link](https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/windows-security-configuration-framework/windows-security-baselines)
+- **MITRE ATT&CK.** (2024). *Command and Control (TA0011)*. MITRE Corporation. [Link](https://attack.mitre.org/tactics/TA0011/)
+- **Orca Security.** (2025). *2025 State of Cloud Security Report*. [Link](https://orca.security/wp-content/uploads/2025/06/2025-State-of-Cloud-Security-Report-v2.pdf)
+- **Palo Alto Networks.** (n.d.). *Threat Brief: Browser Cryptocurrency Mining*. Cyberpedia. [Link](https://www.paloaltonetworks.com/cyberpedia/threat-brief-browser-cryptocurrency-mining)
+
+---
+
+# AI Transcripts
+Using the prompt: 
+
+Id like to add some external threat inteligence and refernece into my report which relates to the BOTSv3 dataset, are there any websites or acedmic literature you suggest i read
+
+The response:
+
+To reach a First Class grade, integrating external threat intelligence is essential to demonstrate that you can relate "lab" findings to real-world adversary behavior (this directly addresses ALO 3 in your handbook).
+Since your report focuses on the Frothly dataset (BOTSv3), here are the specific academic and industry resources you should read and reference:
+1. Academic Literature (For High-Level SIEM & Methodology)
+Referencing academic papers shows "critical awareness" of the tools you are using.
+"Exploring the Possibilities of Splunk Enterprise Security in Advanced Cyber Threat Detection" (Shelke & Frantti, 2025): This is a very recent paper (ICCWS 2025) that discusses how Splunk handles APTs and anomaly detection. It’s perfect for the "SOC Context" section of your report.
+"A Systematic Literature Review of Information Security in Chatbots" (MDPI, 2023): While specific to chatbots, the section on Multi-Factor Authentication (MFA) and data breaches provides a strong academic basis for why the lack of MFA on the web_admin account was a critical failure.
+2. Industry Intelligence (For Adversary Mapping)
+The BOTSv3 dataset is modeled after real-world attacks. You can gain "First Class" marks by identifying the specific adversary groups simulated in the data.
+The Taedonggang APT Group: Research this specific adversary group (often linked to North Korean operations). BOTSv3 simulates a multi-stage campaign by them.
+MITRE ATT&CK Framework: Don't just list events; map them to MITRE. For example:
+T1566.001 (Phishing: Spearphishing Attachment): Relate the file Frothly-Brewery-Financial-Planning-FY2019-Draft.xlsm to this technique.
+T1530 (Data from Cloud Storage): Relate the S3 bucket exposure (frothlywebcode) to this technique.
+GitGuardian / Credential Leaks: The "Root Cause" of the Frothly breach is often identified as AWS credentials leaked to a public GitHub repository. Referencing reports from GitGuardian on the "State of Secrets Sprawl" would provide excellent external context.
+3. Technical Reference Sites (For "Evidence and Best Practices")
+Use these to support your "Recommendations" (Table 6 in your report):
+Splunk Security Blog: Specifically the post "How To Use CloudTrail Data for Security Operations & Threat Hunting". This explains the importance of fields like userIdentity.sessionContext.attributes.mfaAuthenticated which you've already found.
+AWS Security Best Practices (S3 & IAM): Reference the CIS AWS Foundations Benchmark v3.0.0. This is the industry standard for cloud security. Citing this when recommending "S3 Block Public Access" or "MFA Enforcement" shows professional rigour.
+Trend Micro Research on S3 Ransomware: Their article "Breaking Down S3 Ransomware: Variants and Attack Paths" provides a detailed look at how attackers exfiltrate data from misconfigured buckets—exactly what happened to Frothly.
+How to use these in your report:
+In the "Incident Overview" (Section 5): "The multi-stage attack patterns observed are consistent with the Tactics, Techniques, and Procedures (TTPs) of the Taedonggang (APT) group as identified in the BOTSv3 simulation [cite]."
+In "Guided Investigation Findings" (Section 6): Instead of just saying the bucket was public, say: "The exposure of the frothlywebcode bucket via the PutBucketAcl API call corresponds to MITRE ATT&CK T1530 (Data from Cloud Storage)."
+In "Recommendations" (Section 9): "In alignment with the CIS AWS Foundations Benchmark, it is recommended that 'Block Public Access' be enforced at the account level to prevent the recurrence of misconfigurations found during this investigation."
+
+
+Using the prompt:
+What can i do to improve my course work to reach a first class, be incredibily critical and harsh. I have attached my report. My report is for the second course work in the attached handbook
+
+The response:
+
+To achieve a First Class grade on your COMP3010 Security Operations & Incident Management report, you must move beyond simply answering the guided questions and focus on demonstrating high-level critical analysis, technical rigour, and professional presentation.
+Based on the module handbook's learning outcomes—specifically ALO3 (Undertake analysis of data and select appropriate intrusion analysis methodologies)—and your current draft, here is a critical evaluation and a "harsh" roadmap for improvement1111.
++2
+
+1. Technical Rigour & Evidence (Critical Gap)
+Your report currently describes what you found but lacks the "reproducible evidence" it claims to provide22. A First Class report in this module must bridge the gap between a high-level narrative and deep-dive technical forensics.
++1
+
+The Issue: You mention using Splunk queries and seeing raw events, but these are missing from the main body3. Referring to a GitHub repository is acceptable, but key evidence must be visible to the marker in the report4444.
++2
+
+
+The Fix: * Embed Splunk Queries: For every finding (e.g., the PutBucketAcl event), you must include the exact Splunk SPL query used to find it5555.
++1
+
+
+Visual Proof: Include high-quality, annotated screenshots of the Splunk event logs showing the specific fields like userIdentity.sessionContext.attributes.mfaAuthenticated6.
+
+
+Data Correlation: Don't just list events; explain how you correlated them. For example, show the join between CloudTrail logs and S3 access logs using the IAM user identity.
+2. Analytical Depth & Methodology
+A First Class submission must evaluate methodologies, not just outcomes77.
++1
+
+The Issue: Your "Guided Investigation Findings" section is purely descriptive 8. You state that the web_admin account was compromised, but you don't critically evaluate the indicators that led to this conclusion beyond the lack of MFA9999.
++3
+
+
+The Fix:
+Framework Alignment: Map your findings explicitly to a known framework like MITRE ATT&CK. For example, categorize the PutBucketAcl modification under "Persistence" or "Exfiltration"10101010.
++1
+
+
+Critical Comparison: Contrast the anomalous endpoint BSTOLL-L against a defined "Gold Image" baseline11. Why is the E5-2676 processor specifically a red flag in a cloud context? Is it indicative of a specific AWS instance type used for crypto-mining?12121212.
++2
+
+
+3. Professionalism & Quality Control
+At Level 6 (Final Year), errors in basic presentation suggest a lack of attention to detail, which is fatal for a SOC analyst role.
+The Issue: Your report contains several typos and "placeholder" text.
+"Route Cause" should be "Root Cause"13131313.
++1
+
+
+"T0 + 4 hours" vs "To + 1 Day" (Consistency error)14.
+
+
+"Theres a range of steps" (Missing apostrophe)15.
+
+
+The Fix:
+Terminology: Use precise industry language. Instead of "unusual activity," use "anomalous API call patterns"16161616.
++1
+
+
+Glossary & Appendix: Your glossary is a good start, but ensure every acronym used in the text (like "IDS," "IPS," or "SIEM") is included 17.
+
+
+4. Executive & Operational Impact (ALO 1 & 2)
+Your impact section is comprehensive but generic 18.
+
+The Issue: You discuss the impact on "staff productivity" and "reputational damage" in broad terms19191919. A First Class report would quantify this based on the Frothly context.
++1
+
+
+The Fix:
+Business Continuity: If the S3 bucket frothlywebcode was public, what specific business process does "webcode" support?20202020. Is this their customer-facing site? The impact on revenue would be specific, not just "low"21.
++2
+
+
+Resource Modeling: In Table 4, you mark SOC Operations as "Medium" severity22. Justify this by calculating the man-hours required for Tiers 1, 2, and 3 to remediate this specific breach 23.
++1
+
+
+5. Recommendations & Future Proofing
+Your recommendations are standard best practices2424. To reach a First Class, you need to propose architectural solutions (ALO 2)25.
++2
+
+The Fix:
+Automation: Instead of just "automated alerts," suggest a SOAR (Security Orchestration, Automation, and Response) workflow that automatically revokes S3 public permissions the moment a PutBucketAcl event is detected2626.
++1
+
+
+Zero Trust: Move the conversation from "MFA for privileged users" to a Zero Trust Architecture where access is validated per-session, regardless of the user's role27272727.
++1
+
+
+Final Verdict: Your report currently sits in the high 2:1 range. It is logically structured and covers the requirements 28. However, to secure a First (70%+), you must replace the "telling" with "showing" by integrating your Splunk evidence directly into the narrative and elevating your analysis from a "what happened" report to a "how it happened and how we re-engineer the system to prevent it" thesis29292929.
++2
+
+
+
 
 ![alt text](image-30.png)
 ![alt text](image-31.png)
@@ -803,3 +821,4 @@ Toward the end of the incident, attackers attempted automated login attacks agai
 ![alt text](image.png)
 ![alt text](image-1.png)
 ![alt text](image-2.png)
+![alt text](image-48.png)
