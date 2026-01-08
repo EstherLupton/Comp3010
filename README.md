@@ -685,8 +685,10 @@ In the "Incident Overview" (Section 5): "The multi-stage attack patterns observe
 In "Guided Investigation Findings" (Section 6): Instead of just saying the bucket was public, say: "The exposure of the frothlywebcode bucket via the PutBucketAcl API call corresponds to MITRE ATT&CK T1530 (Data from Cloud Storage)."
 In "Recommendations" (Section 9): "In alignment with the CIS AWS Foundations Benchmark, it is recommended that 'Block Public Access' be enforced at the account level to prevent the recurrence of misconfigurations found during this investigation."
 
+---
 
 Using the prompt:
+
 What can i do to improve my course work to reach a first class, be incredibily critical and harsh. I have attached my report. My report is for the second course work in the attached handbook
 
 The response:
@@ -781,56 +783,4 @@ Zero Trust: Move the conversation from "MFA for privileged users" to a Zero Trus
 Final Verdict: Your report currently sits in the high 2:1 range. It is logically structured and covers the requirements 28. However, to secure a First (70%+), you must replace the "telling" with "showing" by integrating your Splunk evidence directly into the narrative and elevating your analysis from a "what happened" report to a "how it happened and how we re-engineer the system to prevent it" thesis29292929.
 +2
 
-
-
-
-![alt text](image-30.png)
-![alt text](image-31.png)
-![alt text](image-32.png)
-![alt text](image-33.png)
-![alt text](image-34.png)
-![alt text](image-35.png)
-![alt text](image-36.png)
-![alt text](image-37.png)
-![alt text](<Screenshot 2025-12-19 111920.png>)
-![alt text](<Screenshot 2025-12-19 113817.png>)
-![alt text](<Screenshot 2025-12-19 113846.png>) 
-![alt text](<Screenshot 2025-12-19 113952.png>) 
-![alt text](<Screenshot 2025-12-19 114034.png>) 
-![alt text](<Screenshot 2025-12-19 114124.png>) 
-![alt text](<Screenshot 2025-12-19 114142.png>) 
-![alt text](<Screenshot 2025-12-19 114303.png>) 
-![alt text](<Screenshot 2025-12-19 114320.png>) 
-![alt text](<Screenshot 2025-12-19 114339.png>) 
-![alt text](<Screenshot 2025-12-19 114406.png>) 
-![alt text](<Screenshot 2025-12-19 114424.png>) 
-![alt text](<Screenshot 2025-12-19 112310.png>) 
-![alt text](<Screenshot 2025-12-19 112421.png>)
-![alt text](<Screenshot 2025-12-19 112500.png>) 
-![alt text](<Screenshot 2025-12-19 112532.png>)
-![alt text](<Screenshot 2025-12-19 112647.png>) 
-![alt text](<Screenshot 2025-12-19 112702.png>) 
-![alt text](<Screenshot 2025-12-19 113141.png>) 
-![alt text](<Screenshot 2025-12-19 113201.png>) 
-![alt text](<Screenshot 2025-12-19 113734 ...png>)
-![alt text](<Screenshot 2025-12-19 113734v.png>)
-
-# Redundant images grave
-![alt text](<Screenshot 2025-12-19 114424.png>) 
-![alt text](<Screenshot 2025-12-19 112310.png>) 
-![alt text](<Screenshot 2025-12-19 112421.png>)
-![alt text](<Screenshot 2025-12-19 112500.png>) 
-![alt text](<Screenshot 2025-12-19 112532.png>)
-![alt text](<Screenshot 2025-12-19 112647.png>) 
-![alt text](<Screenshot 2025-12-19 112702.png>) 
-![alt text](<Screenshot 2025-12-19 113141.png>) 
-![alt text](<Screenshot 2025-12-19 113201.png>) 
-![alt text](<Screenshot 2025-12-19 113734 ...png>)
-![alt text](<Screenshot 2025-12-19 113734v.png>)
-![alt text](image-31.png)
-![alt text](image-30.png)
-![alt text](image-36.png)
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-2.png)
-![alt text](image-48.png)
+---
