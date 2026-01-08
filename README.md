@@ -723,9 +723,36 @@ Additional cloud servers were automatically created, likely as a result of the e
 
 Toward the end of the incident, attackers attempted automated login attacks against company web servers and then launched another attack aimed at extracting stored data. An email was later sent claiming that customer data had been successfully stolen, indicating a high risk of data exposure and potential reputational and regulatory impact.
 
-
+---
 
 # References
+---
+
+- **AWS.** (n.d.). *Blocking public access to your Amazon S3 storage*.  
+  AWS Documentation.  
+  https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html
+
+- **AWS.** (n.d.). *Logging IAM and AWS STS API calls with AWS CloudTrail*.  
+  AWS Documentation.  
+  https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html
+
+- **AWS.** (n.d.). *Security best practices for Amazon S3*.  
+  AWS Documentation.  
+  https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html
+
+- **AWS.** (n.d.). *Security best practices in IAM*.  
+  AWS Documentation.  
+  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
+
+- **Agyepong, E., & Chen, Y.** (2020). *Towards a framework for measuring the performance of a Security Operations Center analyst*.  
+  IEEE.  
+  https://ieeexplore.ieee.org/document/9138872/
+
+- **Microsoft.** (n.d.). *Security baselines*.  
+  Microsoft Learn.  
+  https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/windows-security-configuration-framework/windows-security-baselines
+
+---
 
 ![alt text](image-30.png)
 ![alt text](image-31.png)
